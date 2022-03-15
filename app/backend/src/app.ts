@@ -6,6 +6,7 @@ class App {
 
   constructor() {
     // ...
+    this.app = express();
     this.config();
     // ...
   }
@@ -18,15 +19,15 @@ class App {
       next();
     };
 
-    this.app.use(accessControl, () => {
-      console.log(`Rodando na porta ${process.env.PORT}`);
-    });
+    this.app.use(accessControl);
     // ...
   }
 
   // ...
   public start(PORT: string | number):void {
-    this.app.listen(PORT);
+    this.app.listen(PORT, () => {
+      console.log(`Rodando na porta ${PORT}`);
+    });
   }
 }
 
