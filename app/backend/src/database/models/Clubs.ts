@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import db from '.';
+import Matchs from './Matchs';
 
 class Clubs extends Model {
   id: number;
@@ -17,9 +18,11 @@ Clubs.init({
 }, {
   underscored: true,
   sequelize: db,
+  tableName: 'clubs',
   timestamps: false,
 });
 
-// Clubs.hasMany() aqui vai a associação do id
+
+Clubs.hasMany(Matchs, { foreignKey: 'id', as: 'matchs' });
 
 export default Clubs;
