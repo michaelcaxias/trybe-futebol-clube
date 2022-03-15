@@ -2,11 +2,18 @@ import { DataTypes, Model } from 'sequelize';
 import db from '.';
 
 class Clubs extends Model {
-  // public <campo>!: <tipo>;
+  id: number;
+  clubName: string;
+
 }
 
 Clubs.init({
-  club_name: DataTypes.STRING,
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  clubName: DataTypes.STRING,
 }, {
   underscored: true,
   sequelize: db,
