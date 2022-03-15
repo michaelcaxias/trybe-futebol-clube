@@ -20,4 +20,6 @@ Clubs.init({
   timestamps: false,
 });
 
+// Clubs.hasMany() aqui vai a associação do id
+
 export default Clubs;
