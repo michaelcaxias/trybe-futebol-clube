@@ -11,7 +11,7 @@ module.exports = {
       },
       clubName: {
         type: Sequelize.STRING
-      }
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -5,7 +5,6 @@ import Matchs from './Matchs';
 class Clubs extends Model {
   id: number;
   clubName: string;
-
 }
 
 Clubs.init({
