@@ -28,5 +28,8 @@ Matchs.init({
   timestamps: false,
 });
 
+Matchs.belongsTo(Clubs, { foreignKey: 'id', as: 'home_team' });
+Matchs.belongsTo(Clubs, { foreignKey: 'id', as: 'away_team' });
+
 
 export default Matchs;
