@@ -4,10 +4,15 @@ import Clubs from './Clubs';
 
 class Matchs extends Model {
   id: number;
+
   homeTeam: number;
+
   homeTeamGoals: number;
+
   awayTeam: number;
+
   awayTeamGoals: number;
+
   inProgress: number;
 }
 
@@ -30,6 +35,5 @@ Matchs.init({
 
 Matchs.belongsTo(Clubs, { foreignKey: 'id', as: 'home_team' });
 Matchs.belongsTo(Clubs, { foreignKey: 'id', as: 'away_team' });
-
 
 export default Matchs;

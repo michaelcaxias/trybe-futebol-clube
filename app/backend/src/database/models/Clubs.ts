@@ -4,6 +4,7 @@ import Matchs from './Matchs';
 
 class Clubs extends Model {
   id: number;
+
   clubName: string;
 }
 
@@ -20,7 +21,6 @@ Clubs.init({
   tableName: 'clubs',
   timestamps: false,
 });
-
 
 Clubs.hasMany(Matchs, { foreignKey: 'id', as: 'home_team' });
 Clubs.hasMany(Matchs, { foreignKey: 'id', as: 'away_team' });
