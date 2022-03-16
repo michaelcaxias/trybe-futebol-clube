@@ -10,19 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       homeTeam: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       homeTeamGoals: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       awayTeam: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       awayTeamGoals: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       inProgress: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
     });
   },

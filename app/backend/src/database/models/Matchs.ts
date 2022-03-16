@@ -4,11 +4,11 @@ import Clubs from './Clubs';
 
 class Matchs extends Model {
   id: number;
-  homeTeam: string;
-  homeTeamGoals: string;
-  awayTeam: string;
-  awayTeamGoals: string;
-  inProgress: string;
+  homeTeam: number;
+  homeTeamGoals: number;
+  awayTeam: number;
+  awayTeamGoals: number;
+  inProgress: number;
 }
 
 Matchs.init({
@@ -17,11 +17,11 @@ Matchs.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  homeTeam: DataTypes.STRING,
-  homeTeamGoals: DataTypes.STRING,
-  awayTeam: DataTypes.STRING,
-  awayTeamGoals: DataTypes.STRING,
-  inProgress: DataTypes.STRING,
+  homeTeam: DataTypes.INTEGER,
+  homeTeamGoals: DataTypes.INTEGER,
+  awayTeam: DataTypes.INTEGER,
+  awayTeamGoals: DataTypes.INTEGER,
+  inProgress: DataTypes.INTEGER,
 }, {
   underscored: true,
   sequelize: db,
