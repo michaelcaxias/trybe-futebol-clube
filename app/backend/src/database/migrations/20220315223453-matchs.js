@@ -10,13 +10,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       homeTeam: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'clubs', key: 'id' },
       },
       homeTeamGoals: {
         type: Sequelize.INTEGER
       },
       awayTeam: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: 'clubs', key: 'id' },
       },
       awayTeamGoals: {
         type: Sequelize.INTEGER
