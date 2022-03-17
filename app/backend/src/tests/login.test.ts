@@ -30,6 +30,6 @@ describe('Verifica MSC de Login', () => {
   let chaiHttpResponse: Response;
 
   it('Essa requisição deve retornar código de status 200', () => {
-    expect(response).to.have.status(200);
+    expect(response).to.have.property('user');
   });
 });
