@@ -12,23 +12,23 @@ const { expect } = chai;
 
 describe('Verifica rota /login', () => {
 
-  const response = {
-    user: {
-      id: 1,
-      username: "Admin",
-      role: "admin",
-      email: "admin@admin.com"
-    },
-    token: "123.456.789"
-  }
   
   let chaiHttpResponse: Response;
   
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
-
     const payload = {
       email: "admin@admin.com",
       password: "senha"
+    }
+    
+    const response = {
+      user: {
+        id: 1,
+        username: "Admin",
+        role: "admin",
+        email: "admin@admin.com"
+      },
+      token: "123.456.789"
     }
 
     before(async () => {
