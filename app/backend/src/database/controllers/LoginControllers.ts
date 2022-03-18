@@ -3,13 +3,13 @@ import { Request, Response } from 'express';
 export const reoveLintWarn = '';
 
 export const checkLogin = async (req: Request, res: Response) => {
-  const { username } = req.body;
+  const { email } = req.body;
   const data = {
     user: {
       id: 1,
-      username,
+      username: 'Admin',
       role: 'admin',
-      email: 'admin@admin.com',
+      email,
     },
     token: '123.456.789',
   };
