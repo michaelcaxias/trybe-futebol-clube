@@ -1,10 +1,12 @@
 import Users from '../models/Users';
-
-export const removeLint = '';
+import IResValidate from '../interfaces/IResponseValidate';
+import responseValidate from '../utils';
 
 type UserBody = { email: string, password: string };
 
-export const getUserById = async ({ email, password }: UserBody) => {
-  const findUser = await Users.findOne({ where: { email, password } });
-  return findUser;
+export const removeLint = '';
+
+export const getUserById = async ({ email, password }: UserBody): Promise<IResValidate> => {
+  const findUser = await Users.findOne({ where: { email, password } }) || {};
+  return responseValidate(200, '', findUser);
 };
