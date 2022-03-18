@@ -1,4 +1,6 @@
 import * as express from 'express';
+import * as Login from './database/controllers/LoginControllers';
+import ValidateLogin from './database/controllers/middlewares/ValidateLogin';
 
 class App {
   public app: express.Express;
@@ -20,10 +22,11 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+    this.app.use(express.json());
   }
 
   public start(PORT: string | number):void {
+    this.app.route('/login').post(ValidateLogin, Login.checkLogin);
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });

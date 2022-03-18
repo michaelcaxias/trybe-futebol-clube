@@ -6,7 +6,7 @@ export const schemeLogin = Joi.object({
   password: Joi.string().required(),
 });
 
-export const checkLogin = async (req: Request, res: Response, next: NextFunction) => {
+const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password } = req.body;
   const { error } = schemeLogin.validate({ username, password });
   if (error) {
@@ -14,3 +14,5 @@ export const checkLogin = async (req: Request, res: Response, next: NextFunction
   }
   next();
 };
+
+export default validateLogin;
