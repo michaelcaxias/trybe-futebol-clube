@@ -28,7 +28,7 @@ describe('Verifica rota /login', () => {
 
     const payload = {
       email: "admin@admin.com",
-      password: "senha",
+      password: "senha"
     }
 
     before(async () => {
@@ -43,8 +43,8 @@ describe('Verifica rota /login', () => {
 
   describe('Verifica funcionamento do método POST em casos de falha', () => {
     const payload = {
-      "email": "admin@admin.com",
-      "password": "senha",
+      email: "admin@admin.com",
+      password: "senha"
     }
     before(async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
