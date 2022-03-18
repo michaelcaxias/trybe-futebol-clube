@@ -3,7 +3,7 @@ import * as Joi from 'joi';
 
 export const schemeLogin = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().required().min(6),
+  password: Joi.string().required().min(7),
 });
 
 const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
