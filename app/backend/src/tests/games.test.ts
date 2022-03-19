@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa uso da rota /clubs', () => {
+describe('Testa uso do endpoint /clubs', () => {
 
   let chaiHttpResponse: Response;
   
