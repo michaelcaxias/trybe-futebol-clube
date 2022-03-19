@@ -11,7 +11,7 @@ export const checkLogin = async (req: Request, res: Response) => {
 };
 
 export const validate = async (req: Request, res: Response) => {
-  const { authorization } = req.headers;
+  const authorization = req.headers.authorization || '';
   const { status, message, data } = await UserServices.getRoleByToken(authorization);
   if (status >= 400) {
     return res.status(status).json({ message });
