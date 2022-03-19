@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as Login from './database/controllers/LoginControllers';
+import * as Club from './database/controllers/ClubControllers';
 import ValidateLogin from './database/controllers/middlewares/ValidateLogin';
 
 class App {
@@ -28,7 +29,7 @@ class App {
   public start(PORT: string | number):void {
     this.app.route('/login').post(ValidateLogin, Login.checkLogin);
     this.app.route('/login/validate').get(Login.validate);
-    this.app.route('/clubs').get(Login.validate);
+    this.app.route('/clubs').get(Club.getTeams);
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });
