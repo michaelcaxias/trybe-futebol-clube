@@ -36,4 +36,11 @@ describe('Testa uso do endpoint /clubs/:id', () => {
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
+  describe('Verifica funcionamento do método GET em casos de erro', () => {
+    it('Retorna um erro ao fazer uma requisição usando um id inexistente', async () => {
+      chaiHttpResponse = await chai.request(app).get('/clubs/100');
+      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find a Team with this id' });
+      expect(chaiHttpResponse.status).to.be.equal(400);
+    });
+  })
 });
