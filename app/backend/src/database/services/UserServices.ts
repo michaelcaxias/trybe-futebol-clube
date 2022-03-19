@@ -19,8 +19,15 @@ export const getUserById = async ({ email }: UserBody): Promise<IResValidate> =>
   const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
   const token = jwt.sign({ email }, jwtSecret);
 
+  const userResult = {
+    id: user.id,
+    username: user.username,
+    role: user.role,
+    email: user.email,
+  };
+
   const responseFormat = {
-    user: { ...user }, token,
+    user: userResult, token,
   };
 
   return responseValidate(200, '', responseFormat);
