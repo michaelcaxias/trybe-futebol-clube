@@ -15,3 +15,18 @@ export const mockResponseLogin = {
   },
   token: "123.456.789"
 }
+
+export const clubsGetMock = [
+  {
+		id: 1,
+		clubName: "Avaí/Kindermann"
+	},
+	{
+		id: 2,
+		clubName: "Bahia"
+	},
+	{
+		id: 3,
+		clubName: "Botafogo"
+	}
+]
