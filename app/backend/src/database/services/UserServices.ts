@@ -10,7 +10,7 @@ type UserBody = { email: string, password: string };
 export const removeLint = '';
 
 export const getUserById = async ({ email, password }: UserBody): Promise<IResValidate> => {
-  const user = await Users.findOne({ where: { email, password } }) || {};
+  const user = await Users.findOne({ where: { email, password } });
 
   if (!user) {
     return responseValidate(401, 'Incorrect email or password');
