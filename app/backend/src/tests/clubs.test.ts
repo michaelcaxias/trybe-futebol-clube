@@ -42,5 +42,10 @@ describe('Testa uso do endpoint /clubs/:id', () => {
       expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find a Team with this id' });
       expect(chaiHttpResponse.status).to.be.equal(400);
     });
+    it('Retorna um erro ao fazer uma requisição usando uma string no lugar de um numero', async () => {
+      chaiHttpResponse = await chai.request(app).get('/clubs/naosouumnumero');
+      expect(chaiHttpResponse.body).to.be.equal({ message: "\"id\" must be a number" });
+      expect(chaiHttpResponse.status).to.be.equal(400);
+    });
   })
 });
