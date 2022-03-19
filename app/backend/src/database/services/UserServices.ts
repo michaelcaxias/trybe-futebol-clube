@@ -16,16 +16,20 @@ const getJWTUserByToken = async (decodedJWT: string | jwt.JwtPayload) => {
 };
 
 export const getRoleByToken = async (token: string): Promise<IResValidate> => {
-  const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
-  const verifyToken = jwt.verify(token, jwtSecret);
-  const user = await getJWTUserByToken(verifyToken);
+  try {
+    const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
+    const verifyToken = jwt.verify(token, jwtSecret);
+    const user = await getJWTUserByToken(verifyToken);
 
-  if (!user) {
+    if (!user) {
+      return responseValidate(401, 'Incorrect token');
+    }
+
+    const { role } = user;
+    return responseValidate(200, '', role);
+  } catch (error) {
     return responseValidate(401, 'Incorrect token');
   }
-
-  const { role } = user;
-  return responseValidate(200, '', { role });
 };
 
 export const getUserById = async ({ email, password }: UserBody): Promise<IResValidate> => {

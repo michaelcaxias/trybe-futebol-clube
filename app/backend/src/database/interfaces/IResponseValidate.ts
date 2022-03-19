@@ -1,5 +1,5 @@
 export default interface IResValidate {
   status: number,
   message: string,
-  data: object,
+  data: object | string | number,
 }
