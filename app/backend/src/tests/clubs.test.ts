@@ -7,6 +7,7 @@ import { Response } from 'superagent';
 
 
 import { clubsGetMock } from './mocks';
+import Clubs from '../database/models/Clubs';
 
 chai.use(chaiHttp);
 
@@ -21,6 +22,21 @@ describe('Testa uso do endpoint /clubs', () => {
       chaiHttpResponse = await chai.request(app).get('/clubs');
       expect(chaiHttpResponse.body).to.be.equal(clubsGetMock);
       expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  })
+  describe('Verifica funcionamento do método GET em casos de erro', () => {
+    before(() => {
+      sinon.stub(Clubs, "findAll").resolves([]);
+    })
+
+    after(() => {
+      (Clubs.findAll as sinon.SinonStub).restore();
+    })
+
+    it('Retorna um erro ao fazer uma requisição sem existir clubs no DB', async () => {
+      chaiHttpResponse = await chai.request(app).get('/clubs');
+      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find any Teams' });
+      expect(chaiHttpResponse.status).to.be.equal(404);
     });
   })
 });
