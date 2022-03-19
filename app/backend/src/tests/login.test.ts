@@ -45,11 +45,7 @@ describe('Testa uso do endpoint /login', () => {
 
   describe('Verifica funcionamento do método POST em casos de falha', () => {
 
-    const payload = {
-      email: "admin@admin.com",
-      password: "senha"
-    }
-
+    
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
     })
@@ -59,10 +55,20 @@ describe('Testa uso do endpoint /login', () => {
     })
     
     it('Retorna os dados esperados ao fazer uma requisição incorreta', async () => {
+      payload = { email: "admin@admin.com", password: "senha" }
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
+
       // https://stackoverflow.com/questions/38497731/mocha-chai-uncaught-assertionerror-expected-to-equal-expected-actua
-      expect(chaiHttpResponse.body).to.deep.equal({});
-      expect(chaiHttpResponse.status).to.be.equal(404);
+      expect(chaiHttpResponse.body).to.deep.equal({ message: "\"password\" length must be at least 7 characters long" });
+      expect(chaiHttpResponse.status).to.be.equal(400);
+    });
+
+    it('Retorna os dados esperados ao fazer uma requisição incorreta', async () => {
+      payload = { email: "admin@admin.com" }
+      chaiHttpResponse = await chai.request(app).post('/login').send(payload);
+
+      expect(chaiHttpResponse.body).to.deep.equal({ message: "All fields must be filled" });
+      expect(chaiHttpResponse.status).to.be.equal(400);
     });
   })
 });
