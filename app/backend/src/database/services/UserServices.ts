@@ -7,7 +7,7 @@ import responseValidate from '../utils';
 
 type UserBody = { email: string, password: string };
 
-const getJWTUserByToken = async (decodedJWT: string | jwt.JwtPayload) => {
+export const getJWTUserByToken = async (decodedJWT: string | jwt.JwtPayload) => {
   if (typeof decodedJWT === 'object') {
     const user = await Users.findOne({ where: { email: decodedJWT.email } });
     return user;
