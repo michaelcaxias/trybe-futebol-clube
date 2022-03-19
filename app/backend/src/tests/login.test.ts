@@ -15,13 +15,13 @@ const { expect } = chai;
 describe('Verifica rota /login', () => {
 
   let chaiHttpResponse: Response;
+  let payload = {};
   
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
-    const payload = {
+    payload = {
       email: "admin@admin.com",
       password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAE"
     }
-
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
     })
@@ -32,7 +32,6 @@ describe('Verifica rota /login', () => {
     
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
-      console.log(chaiHttpResponse);
       expect(chaiHttpResponse.body).to.be.equal(mockResponseLogin);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
