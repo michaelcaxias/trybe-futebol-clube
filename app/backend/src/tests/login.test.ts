@@ -58,7 +58,6 @@ describe('Testa uso do endpoint /login', () => {
       payload = { email: "admin@admin.com", password: "senha" }
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
 
-      // https://stackoverflow.com/questions/38497731/mocha-chai-uncaught-assertionerror-expected-to-equal-expected-actua
       expect(chaiHttpResponse.body).to.deep.equal({ message: "\"password\" length must be at least 7 characters long" });
       expect(chaiHttpResponse.status).to.be.equal(400);
     });
