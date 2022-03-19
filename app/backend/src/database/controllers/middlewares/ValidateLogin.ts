@@ -2,8 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import * as Joi from 'joi';
 
 export const schemeLogin = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required().min(7),
+  email: Joi.string().email().required().messages({
+    'string.required': 'All fields must be filled',
+  }),
+  password: Joi.string().required().min(7).messages({
+    'string.required': 'All fields must be filled',
+  }),
 });
 
 const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
