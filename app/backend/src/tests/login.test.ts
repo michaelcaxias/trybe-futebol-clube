@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Verifica rota /login', () => {
+describe('Testa uso do endpoint /login', () => {
 
   let chaiHttpResponse: Response;
   let payload = {};
@@ -21,7 +21,9 @@ describe('Verifica rota /login', () => {
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-      sinon.stub(UserServices, 'getUserById').resolves({ status: 200, message: '', data: mockResponseLogin });
+      sinon.stub(UserServices, 'getUserById').resolves({
+        status: 200, message: '', data: mockResponseLogin,
+      });
     })
     
     after(async () => {
@@ -61,6 +63,55 @@ describe('Verifica rota /login', () => {
       // https://stackoverflow.com/questions/38497731/mocha-chai-uncaught-assertionerror-expected-to-equal-expected-actua
       expect(chaiHttpResponse.body).to.deep.equal({});
       expect(chaiHttpResponse.status).to.be.equal(404);
+    });
+  })
+});
+
+describe('Testa uso do endpoint /login/validate', () => {
+
+  let chaiHttpResponse: Response;
+  let authorization = ""; 
+  
+  describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzcyNTQ4N30.liM1Oa_nEGRshFcjd4gz8JWPoTHXKML-dATZVOzKb2A";
+ 
+    before(async () => {
+      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+      sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 200, message: "", data: "admin" });
+    })
+    
+    after(async () => {
+      (UserServices.getRoleByToken as sinon.SinonStub).restore();
+      (Users.findOne as sinon.SinonStub).restore();
+    })
+    
+    it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
+      // https://github.com/visionmedia/supertest/issues/398
+      chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
+      expect(chaiHttpResponse.body).to.be.equal('admin');
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  })
+
+  describe('Verifica funcionamento do método GET em casos de falha', () => {
+    authorization = "bad token";
+    const incorrectTokenMessage = { message: "Incorrect token" }
+
+    before(async () => {
+      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+      sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 401, message: "Incorrect token", data: {}});
+    })
+    
+    after(async () => {
+      (UserServices.getRoleByToken as sinon.SinonStub).restore();
+      (Users.findOne as sinon.SinonStub).restore();
+    })
+
+    it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
+      // https://github.com/visionmedia/supertest/issues/398
+      chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
+      expect(chaiHttpResponse.body).to.be.equal(incorrectTokenMessage);
+      expect(chaiHttpResponse.status).to.be.equal(401);
     });
   })
 });
