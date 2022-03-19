@@ -12,15 +12,11 @@ export const schemeLogin = Joi.object({
 
 const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
-  try {
-    const { error } = schemeLogin.validate({ email, password });
-    if (error) {
-      res.status(400).json({ message: error.message });
-    }
-    next();
-  } catch (error) {
-    res.status(500).json(error);
+  const { error } = schemeLogin.validate({ email, password });
+  if (error) {
+    return res.status(400).json({ message: error.message });
   }
+  return next();
 };
 
 export default validateLogin;
