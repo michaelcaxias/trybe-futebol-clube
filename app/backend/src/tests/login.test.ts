@@ -25,7 +25,7 @@ describe('Testa uso do endpoint /login', () => {
         status: 200, message: '', data: mockResponseLogin,
       });
     })
-    
+     
     after(async () => {
       (UserServices.getUserById as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
@@ -78,11 +78,13 @@ describe('Testa uso do endpoint /login/validate', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
       sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 200, message: "", data: "admin" });
+      sinon.stub(UserServices, 'getJWTUserByToken').resolves(userFindOneMock as Users);
     })
     
     after(async () => {
-      (UserServices.getRoleByToken as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
+      (UserServices.getRoleByToken as sinon.SinonStub).restore();
+      (UserServices.getJWTUserByToken as sinon.SinonStub).restore();
     })
     
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
@@ -90,6 +92,13 @@ describe('Testa uso do endpoint /login/validate', () => {
       chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
       expect(chaiHttpResponse.body).to.be.equal('admin');
       expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+
+    it('Retorna usuário ao chamar função getJWTUserByToken', async () => {
+      // https://github.com/visionmedia/supertest/issues/398
+      chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
+      const result = await UserServices.getJWTUserByToken({ email: "admin@admin.com" });
+      expect(result).to.be.equal(userFindOneMock as Users);
     });
   })
 
@@ -100,11 +109,13 @@ describe('Testa uso do endpoint /login/validate', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
       sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 401, message: "Incorrect token", data: {}});
+      sinon.stub(UserServices, 'getJWTUserByToken').resolves('');
     })
     
     after(async () => {
       (UserServices.getRoleByToken as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
+      (UserServices.getJWTUserByToken as sinon.SinonStub).restore();
     })
 
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
@@ -112,6 +123,12 @@ describe('Testa uso do endpoint /login/validate', () => {
       chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
       expect(chaiHttpResponse.body).to.be.equal(incorrectTokenMessage);
       expect(chaiHttpResponse.status).to.be.equal(401);
+    });
+
+    it('Retorna string vazia ao chamar função getJWTUserByToken', async () => {
+      // https://github.com/visionmedia/supertest/issues/398
+      const result = await UserServices.getJWTUserByToken('');
+      expect(result).to.be.equal('');
     });
   })
 });
