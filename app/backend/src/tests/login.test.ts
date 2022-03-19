@@ -2,6 +2,7 @@ import * as sinon from 'sinon';
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
+import * as UserServices from '../database/services/UserServices';
 import { app } from '../app';
 
 import { Response } from 'superagent';
@@ -18,18 +19,21 @@ describe('Verifica rota /login', () => {
   let payload = {};
   
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
+    before(async () => {
+      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+      sinon.stub(UserServices, 'getUserById').resolves({ status: 200, message: '', data: mockResponseLogin });
+    })
+    
+    after(async () => {
+      (UserServices.getUserById as sinon.SinonStub).restore();
+      (Users.findOne as sinon.SinonStub).restore();
+    })
+    
     payload = {
       email: "admin@admin.com",
       password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAE"
     }
-    before(async () => {
-      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-    })
 
-    after(async () => {
-      (Users.findOne as sinon.SinonStub).restore();
-    })
-    
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
       expect(chaiHttpResponse.body).to.be.equal(mockResponseLogin);
