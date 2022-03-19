@@ -5,6 +5,8 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 
 import { Response } from 'superagent';
+import Users from '../database/models/Users';
+import { userFindOneMock, mockResponseLogin } from './mocks';
 
 chai.use(chaiHttp);
 
@@ -12,7 +14,6 @@ const { expect } = chai;
 
 describe('Verifica rota /login', () => {
 
-  
   let chaiHttpResponse: Response;
   
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
@@ -20,23 +21,18 @@ describe('Verifica rota /login', () => {
       email: "admin@admin.com",
       password: "senha"
     }
-    
-    const response = {
-      user: {
-        id: 1,
-        username: "Admin",
-        role: "admin",
-        email: "admin@admin.com"
-      },
-      token: "123.456.789"
-    }
 
     before(async () => {
-      chaiHttpResponse = await chai.request(app).post('/login').send(payload);
+      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
     })
-  
-    it('Retorna os dados esperados ao fazer uma requisição correta', () => {
-      expect(chaiHttpResponse.body).to.be.equal(response);
+
+    after(async () => {
+      (Users.findOne as sinon.SinonStub).restore();
+    })
+    
+    it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
+      chaiHttpResponse = await chai.request(app).post('/login').send(payload);
+      expect(chaiHttpResponse.body).to.be.equal(mockResponseLogin);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })

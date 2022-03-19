@@ -1,5 +1,3 @@
-export const rmeoveLint = '';
-
 export const userFindOneMock = {
   id: 1,
   username: 'Admin',
