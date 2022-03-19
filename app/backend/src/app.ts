@@ -27,6 +27,7 @@ class App {
 
   public start(PORT: string | number):void {
     this.app.route('/login').post(ValidateLogin, Login.checkLogin);
+    this.app.route('/login/validate').get(Login.validate);
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });
