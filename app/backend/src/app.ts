@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as Login from './database/controllers/LoginControllers';
 import * as Club from './database/controllers/ClubControllers';
+import * as Match from './database/controllers/MatchsControllers';
 import ValidateLogin from './database/controllers/middlewares/ValidateLogin';
 import validateId from './database/controllers/middlewares/ValidateClub';
 
@@ -32,6 +33,7 @@ class App {
     this.app.route('/login/validate').get(Login.validate);
     this.app.route('/clubs').get(Club.getTeams);
     this.app.route('/clubs/:id').get(validateId, Club.getTeamById);
+    this.app.route('/matchs').get(Match.getMatchs);
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });
