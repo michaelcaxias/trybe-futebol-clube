@@ -4,18 +4,10 @@ import * as bcryptjs from 'bcryptjs';
 
 import Users from '../models/Users';
 import IResValidate from '../interfaces/IResponseValidate';
-import responseValidate from '../utils';
+import { responseValidate, getJWTUserByToken } from '../utils';
 import ErrorMessage from '../utils/ErrorMessage';
 
 type UserBody = { email: string, password: string };
-
-export const getJWTUserByToken = async (decodedJWT: string | jwt.JwtPayload) => {
-  if (typeof decodedJWT === 'object') {
-    const user = await Users.findOne({ where: { email: decodedJWT.email } });
-    return user;
-  }
-  return '';
-};
 
 export const getRoleByToken = async (token: string): Promise<IResValidate> => {
   try {
