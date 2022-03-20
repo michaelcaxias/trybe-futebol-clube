@@ -34,6 +34,7 @@ class App {
     this.app.route('/clubs').get(Club.getTeams);
     this.app.route('/clubs/:id').get(validateId, Club.getTeamById);
     this.app.route('/matchs').get(Match.getMatchs);
+    this.app.route('/matchs/:inProgress').get(Match.getMatchsByProgress);
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });
