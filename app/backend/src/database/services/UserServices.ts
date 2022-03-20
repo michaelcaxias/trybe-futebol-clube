@@ -24,13 +24,13 @@ export const getRoleByToken = async (token: string): Promise<IResValidate> => {
     const user = await getJWTUserByToken(verifyToken);
 
     if (!user) {
-      return responseValidate(401, 'Incorrect token');
+      return responseValidate(401, ErrorMessage.INVALID_TOKEN);
     }
 
     const { role } = user;
     return responseValidate(200, '', role);
   } catch (error) {
-    return responseValidate(401, 'Incorrect token');
+    return responseValidate(401, ErrorMessage.INVALID_TOKEN);
   }
 };
 
