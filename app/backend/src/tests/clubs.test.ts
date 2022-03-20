@@ -20,7 +20,7 @@ describe('Testa uso do endpoint /clubs', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs');
-      expect(chaiHttpResponse.body).to.be.equal(clubsGetMock);
+      expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
@@ -48,7 +48,7 @@ describe('Testa uso do endpoint /clubs/:id', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/1');
-      expect(chaiHttpResponse.body).to.be.equal(clubsGetMock[0]);
+      expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock[0]);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })

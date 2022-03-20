@@ -38,7 +38,7 @@ describe('Testa uso do endpoint /login', () => {
 
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).post('/login').send(payload);
-      expect(chaiHttpResponse.body).to.be.equal(mockResponseLogin);
+      expect(chaiHttpResponse.body).to.deep.equal(mockResponseLogin);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
@@ -117,7 +117,7 @@ describe('Testa uso do endpoint /login/validate', () => {
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       // https://github.com/visionmedia/supertest/issues/398
       chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', authorization)
-      expect(chaiHttpResponse.body).to.be.equal(incorrectTokenMessage);
+      expect(chaiHttpResponse.body).to.deep.equal(incorrectTokenMessage);
       expect(chaiHttpResponse.status).to.be.equal(401);
     });
   })
