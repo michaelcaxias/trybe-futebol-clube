@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import * as Login from './database/controllers/LoginControllers';
 import * as Club from './database/controllers/ClubControllers';
 import * as Match from './database/controllers/MatchsControllers';
@@ -26,6 +27,7 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(express.json());
+    this.app.use(cors());
   }
 
   public start(PORT: string | number):void {
