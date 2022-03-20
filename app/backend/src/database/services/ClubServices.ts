@@ -1,4 +1,4 @@
-import responseValidate from '../utils';
+import { responseValidate } from '../utils';
 import Clubs from '../models/Clubs';
 import IResValidate from '../interfaces/IResponseValidate';
 

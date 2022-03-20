@@ -4,16 +4,14 @@ import * as bcryptjs from 'bcryptjs';
 
 import Users from '../models/Users';
 import IResValidate from '../interfaces/IResponseValidate';
-import { responseValidate, getJWTUserByToken } from '../utils';
+import { responseValidate, verifyJWT } from '../utils';
 import ErrorMessage from '../utils/ErrorMessage';
 
 type UserBody = { email: string, password: string };
 
 export const getRoleByToken = async (token: string): Promise<IResValidate> => {
   try {
-    const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
-    const verifyToken = jwt.verify(token, jwtSecret);
-    const user = await getJWTUserByToken(verifyToken);
+    const user = await verifyJWT(token);
 
     if (!user) {
       return responseValidate(401, ErrorMessage.INVALID_TOKEN);
