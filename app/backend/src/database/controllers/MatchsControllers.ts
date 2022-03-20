@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import * as fs from 'fs';
 import * as MatchServices from '../services/MatchsServices';
 
 export const getMatchs = async (req: Request, res: Response, next: NextFunction) => {
