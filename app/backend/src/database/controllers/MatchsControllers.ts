@@ -17,7 +17,6 @@ export const getMatchs = async (req: Request, res: Response, next: NextFunction)
 export const getMatchsByProgress = async (req: Request, res: Response) => {
   const { inProgress } = req.query;
   const convertInProgressToBoolean = inProgress === 'true';
-  fs.writeFileSync('text.txt', String(inProgress), 'utf-8');
   const {
     status, message, data,
   } = await MatchServices.getMatchsByProgress(convertInProgressToBoolean);
