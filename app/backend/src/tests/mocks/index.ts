@@ -92,11 +92,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },
@@ -108,11 +106,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -124,11 +120,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -140,11 +134,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -156,11 +148,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -172,11 +162,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -188,11 +176,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -204,11 +190,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -220,11 +204,9 @@ export const matchsGetMock = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -236,11 +218,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -252,11 +232,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -268,11 +246,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -284,11 +260,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -300,11 +274,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -316,11 +288,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -332,11 +302,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -348,11 +316,9 @@ export const matchsGetMock = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },
@@ -364,11 +330,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -380,11 +344,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -396,11 +358,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -412,11 +372,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -428,11 +386,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -444,11 +400,9 @@ export const matchsGetMock = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -460,11 +414,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -476,11 +428,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -492,11 +442,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -508,11 +456,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -524,11 +470,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -540,11 +484,9 @@ export const matchsGetMock = [
     awayTeamGoals: 4,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -556,11 +498,9 @@ export const matchsGetMock = [
     awayTeamGoals: 4,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -572,11 +512,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -588,11 +526,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -604,11 +540,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -620,11 +554,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -636,11 +568,9 @@ export const matchsGetMock = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -652,11 +582,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -668,11 +596,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -684,11 +610,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -700,11 +624,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -716,11 +638,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },
@@ -732,11 +652,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -748,11 +666,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -764,11 +680,9 @@ export const matchsGetMock = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -780,11 +694,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: true,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -796,11 +708,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -812,11 +722,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -828,11 +736,9 @@ export const matchsGetMock = [
     awayTeamGoals: 2,
     inProgress: true,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -844,11 +750,9 @@ export const matchsGetMock = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -863,11 +767,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -879,11 +781,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -895,11 +795,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 0,
     inProgress: true,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -911,11 +809,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 2,
     inProgress: true,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -927,11 +823,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -943,11 +837,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -959,11 +851,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 2,
     inProgress: true,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -975,11 +865,9 @@ export const matchsGetProgressTrue = [
     awayTeamGoals: 1,
     inProgress: true,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -994,11 +882,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },
@@ -1010,11 +896,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -1026,11 +910,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -1042,11 +924,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -1058,11 +938,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -1074,11 +952,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -1090,11 +966,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -1106,11 +980,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -1122,11 +994,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -1138,11 +1008,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -1154,11 +1022,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -1170,11 +1036,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -1186,11 +1050,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -1202,11 +1064,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -1218,11 +1078,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -1234,11 +1092,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -1250,11 +1106,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },
@@ -1266,11 +1120,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -1282,11 +1134,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
     awayClub: {
-      id: 2,
       clubName: "Bahia",
     },
   },
@@ -1298,11 +1148,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 7,
       clubName: "Flamengo",
     },
     awayClub: {
-      id: 9,
       clubName: "Internacional",
     },
   },
@@ -1314,11 +1162,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -1330,11 +1176,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 4,
       clubName: "Corinthians",
     },
     awayClub: {
-      id: 3,
       clubName: "Botafogo",
     },
   },
@@ -1346,11 +1190,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -1362,11 +1204,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 14,
       clubName: "Santos",
     },
   },
@@ -1378,11 +1218,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -1394,11 +1232,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
     awayClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
   },
@@ -1410,11 +1246,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 2,
     inProgress: false,
     homeClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
     awayClub: {
-      id: 15,
       clubName: "São José-SP",
     },
   },
@@ -1426,11 +1260,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 16,
       clubName: "São Paulo",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -1442,11 +1274,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 4,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -1458,11 +1288,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 4,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
   },
@@ -1474,11 +1302,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 8,
       clubName: "Grêmio",
     },
     awayClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
   },
@@ -1490,11 +1316,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -1506,11 +1330,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 1,
       clubName: "Avaí/Kindermann",
     },
     awayClub: {
-      id: 16,
       clubName: "São Paulo",
     },
   },
@@ -1522,11 +1344,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 9,
       clubName: "Internacional",
     },
     awayClub: {
-      id: 6,
       clubName: "Ferroviária",
     },
   },
@@ -1538,11 +1358,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 3,
     inProgress: false,
     homeClub: {
-      id: 10,
       clubName: "Minas Brasília",
     },
     awayClub: {
-      id: 5,
       clubName: "Cruzeiro",
     },
   },
@@ -1554,11 +1372,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 2,
       clubName: "Bahia",
     },
     awayClub: {
-      id: 7,
       clubName: "Flamengo",
     },
   },
@@ -1570,11 +1386,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 15,
       clubName: "São José-SP",
     },
     awayClub: {
-      id: 13,
       clubName: "Real Brasília",
     },
   },
@@ -1586,11 +1400,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 14,
       clubName: "Santos",
     },
     awayClub: {
-      id: 4,
       clubName: "Corinthians",
     },
   },
@@ -1602,11 +1414,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 0,
     inProgress: false,
     homeClub: {
-      id: 3,
       clubName: "Botafogo",
     },
     awayClub: {
-      id: 11,
       clubName: "Napoli-SC",
     },
   },
@@ -1618,11 +1428,9 @@ export const matchsGetProgressFalse = [
     awayTeamGoals: 1,
     inProgress: false,
     homeClub: {
-      id: 12,
       clubName: "Palmeiras",
     },
     awayClub: {
-      id: 8,
       clubName: "Grêmio",
     },
   },

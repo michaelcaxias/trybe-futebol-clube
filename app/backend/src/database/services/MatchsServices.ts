@@ -6,8 +6,8 @@ import Clubs from '../models/Clubs';
 export const getMatchs = async (): Promise<IResValidate> => {
   const matchs = await Matchs.findAll({
     include: [
-      { model: Clubs, as: 'homeClub' },
-      { model: Clubs, as: 'awayClub' },
+      { model: Clubs, as: 'homeClub', attributes: { exclude: ['id'] } },
+      { model: Clubs, as: 'awayClub', attributes: { exclude: ['id'] } },
     ],
   });
 
@@ -22,8 +22,8 @@ export const getMatchsByProgress = async (inProgress: boolean): Promise<IResVali
   const matchs = await Matchs.findAll({
     where: { inProgress },
     include: [
-      { model: Clubs, as: 'homeClub' },
-      { model: Clubs, as: 'awayClub' },
+      { model: Clubs, as: 'homeClub', attributes: { exclude: ['id'] } },
+      { model: Clubs, as: 'awayClub', attributes: { exclude: ['id'] } },
     ],
   });
 
