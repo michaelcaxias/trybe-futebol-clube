@@ -11,7 +11,7 @@ export const getMatchs = async (_req: Request, res: Response) => {
 
 export const getMatchsByProgress = async (req: Request, res: Response) => {
   const { inProgress } = req.params;
-  const convertInProgressToBoolean = inProgress === 'true' ? 1 : 0;
+  const convertInProgressToBoolean = inProgress === 'true';
   const {
     status, message, data,
   } = await MatchServices.getMatchsByProgress(convertInProgressToBoolean);
