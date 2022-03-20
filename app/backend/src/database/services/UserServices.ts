@@ -5,6 +5,7 @@ import * as bcryptjs from 'bcryptjs';
 import Users from '../models/Users';
 import IResValidate from '../interfaces/IResponseValidate';
 import responseValidate from '../utils';
+import ErrorMessage from '../utils/ErrorMessage';
 
 type UserBody = { email: string, password: string };
 
@@ -36,11 +37,11 @@ export const getRoleByToken = async (token: string): Promise<IResValidate> => {
 export const getUserById = async ({ email, password }: UserBody): Promise<IResValidate> => {
   const user = await Users.findOne({ where: { email } });
 
-  if (!user) { return responseValidate(401, 'Incorrect email or password'); }
+  if (!user) { return responseValidate(401, ErrorMessage.INCORRECT_LOGIN); }
 
   const compareCrypt = await bcryptjs.compare(password, user.password);
 
-  if (!compareCrypt) { return responseValidate(401, 'Incorrect email or password'); }
+  if (!compareCrypt) { return responseValidate(401, ErrorMessage.INCORRECT_LOGIN); }
 
   const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
   const token = jwt.sign({ email }, jwtSecret);

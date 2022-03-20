@@ -1,17 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import * as Joi from 'joi';
-
-const notEmptyMessage = 'All fields must be filled';
+import ErrorMessage from '../../utils/ErrorMessage';
 
 export const schemeLogin = Joi.object({
   email: Joi.string().email().required().messages({
-    'string.required': notEmptyMessage,
-    'string.email': 'Incorrect email or password',
-    'string.empty': notEmptyMessage,
+    'string.required': ErrorMessage.NOT_EMPTY,
+    'string.email': ErrorMessage.INCORRECT_LOGIN,
+    'string.empty': ErrorMessage.NOT_EMPTY,
   }),
   password: Joi.string().required().min(7).messages({
-    'string.required': notEmptyMessage,
-    'string.empty': notEmptyMessage,
+    'string.required': ErrorMessage.NOT_EMPTY,
+    'string.empty': ErrorMessage.NOT_EMPTY,
   }),
 });
 
