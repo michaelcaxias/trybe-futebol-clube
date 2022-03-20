@@ -6,7 +6,15 @@ import { app } from '../app';
 import { Response } from 'superagent';
 
 import Matchs from '../database/models/Matchs';
-import { matchsGetMock, matchsGetProgressTrue, matchsGetProgressFalse } from './mocks';
+import Users from '../database/models/Users';
+
+import {
+  matchsGetMock,
+  matchsGetProgressTrue,
+  matchsGetProgressFalse,
+  matchPostMock,
+  userFindOneMock,
+} from './mocks';
 
 chai.use(chaiHttp);
 
@@ -15,6 +23,7 @@ const { expect } = chai;
 describe('Testa uso do endpoint /matchs', () => {
 
   let chaiHttpResponse: Response;
+  let payload = {};
   
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
@@ -24,6 +33,32 @@ describe('Testa uso do endpoint /matchs', () => {
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
+
+  describe('Verifica funcionamento do método POST em casos de sucesso', () => {
+    const authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzcyNTQ4N30.liM1Oa_nEGRshFcjd4gz8JWPoTHXKML-dATZVOzKb2A"
+
+    before( async () => {
+      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+    })
+
+    after((async () => {
+      (Users.findOne as sinon.SinonStub).restore();
+    }))
+
+    it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
+      payload = {
+        homeTeam: 16,
+        awayTeam: 8,
+        homeTeamGoals: 2,
+        awayTeamGoals: 2,
+        inProgress: true
+      }
+      chaiHttpResponse = await chai.request(app).post('/matchs').send(payload).set('Authorization', authorization);
+      expect(chaiHttpResponse.body).to.deep.equal(matchPostMock);
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  })
+
   describe('Verifica funcionamento do método GET em casos de erro', () => {
     before(() => {
       sinon.stub(Matchs, "findAll").resolves([]);
