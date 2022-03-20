@@ -18,8 +18,14 @@ export const getMatchs = async (): Promise<IResValidate> => {
   return responseValidate(200, '', matchs);
 };
 
-export const getMatchsByProgress = async (progress: boolean): Promise<IResValidate> => {
-  const matchs = await Matchs.findAll({ where: { inProgress: progress } });
+export const getMatchsByProgress = async (inProgress: boolean): Promise<IResValidate> => {
+  const matchs = await Matchs.findAll({
+    where: { inProgress },
+    include: [
+      { model: Clubs, as: 'homeClub' },
+      { model: Clubs, as: 'awayClub' },
+    ],
+  });
 
   if (!matchs.length) {
     return responseValidate(404, 'Could not find any Matchs');
