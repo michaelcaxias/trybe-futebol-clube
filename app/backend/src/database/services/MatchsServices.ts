@@ -1,6 +1,4 @@
-import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs';
-import { responseValidate, getJWTUserByToken } from '../utils';
+import { responseValidate, verifyJWT } from '../utils';
 import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
 import Clubs from '../models/Clubs';
@@ -39,18 +37,20 @@ export const getMatchsByProgress = async (inProgress: boolean): Promise<IResVali
 };
 
 export const postMatch = async (newMatch: IMatch, token: string): Promise<IResValidate> => {
-  const jwtSecret = fs.readFileSync('jwt.evaluation.key', 'utf8').trim();
-  const verifyToken = jwt.verify(token, jwtSecret);
-  const user = await getJWTUserByToken(verifyToken);
+  try {
+    const user = await verifyJWT(token);
 
-  if (!user) {
+    if (!user) {
+      return responseValidate(401, ErrorMessage.INVALID_TOKEN);
+    }
+
+    const createNewGame = await Matchs.create(newMatch);
+
+    if (!createNewGame) {
+      return responseValidate(400, 'Could not create the match specified');
+    }
+    return responseValidate(200, '', createNewGame);
+  } catch (error) {
     return responseValidate(401, ErrorMessage.INVALID_TOKEN);
   }
-
-  const createNewGame = await Matchs.create(newMatch);
-
-  if (!createNewGame) {
-    return responseValidate(400, 'Could not create the match specified');
-  }
-  return responseValidate(200, '', createNewGame);
 };
