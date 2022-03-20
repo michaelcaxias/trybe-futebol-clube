@@ -83,13 +83,11 @@ describe('Testa uso do endpoint /login/validate', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
       sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 200, message: "", data: "admin" });
-      sinon.stub(UserServices, 'getJWTUserByToken').resolves(userFindOneMock as Users);
     })
     
     after(async () => {
       (Users.findOne as sinon.SinonStub).restore();
       (UserServices.getRoleByToken as sinon.SinonStub).restore();
-      (UserServices.getJWTUserByToken as sinon.SinonStub).restore();
     })
     
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {

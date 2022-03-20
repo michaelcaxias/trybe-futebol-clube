@@ -19,6 +19,7 @@ describe('Testa uso do endpoint /matchs', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs');
+      console.log(chaiHttpResponse);
       expect(chaiHttpResponse.body).to.deep.equal(matchsGetMock);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
@@ -69,7 +70,7 @@ describe('Testa uso do endpoint /matchs?inProgress', () => {
       expect(chaiHttpResponse.body).to.deep.equal({ message: 'Could not find any Matchs' });
       expect(chaiHttpResponse.status).to.be.equal(404);
     });
-    it('Retorna um erro ao fazer uma requisição com inProgress=true sem existir Matchs no DB', async () => {
+    it('Retorna um erro ao fazer uma requisição com inProgress=false sem existir Matchs no DB', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=false');
       expect(chaiHttpResponse.body).to.deep.equal({ message: 'Could not find any Matchs' });
       expect(chaiHttpResponse.status).to.be.equal(404);
