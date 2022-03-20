@@ -6,7 +6,7 @@ import { app } from '../app';
 import { Response } from 'superagent';
 
 import Matchs from '../database/models/Matchs';
-import { matchsGetMock } from './mocks';
+import { matchsGetMock, matchsGetProgressTrue, matchsGetProgressFalse } from './mocks';
 
 chai.use(chaiHttp);
 
@@ -42,4 +42,37 @@ describe('Testa uso do endpoint /matchs', () => {
 
 describe('Testa uso do endpoint /matchs?inProgress', () => {
   let chaiHttpResponse: Response;
+
+  describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    it('Retorna os dados esperados ao fazer uma requisição correta utilizando inProgress=true', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=true');
+      expect(chaiHttpResponse.body).to.be.equal(matchsGetProgressTrue);
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+    it('Retorna os dados esperados ao fazer uma requisição correta utilizando inProgress=false', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=false');
+      expect(chaiHttpResponse.body).to.be.equal(matchsGetProgressFalse);
+      expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  })
+  describe('Verifica funcionamento do método GET em casos de erro', () => {
+    before(() => {
+      sinon.stub(Matchs, "findAll").resolves([]);
+    })
+
+    after(() => {
+      (Matchs.findAll as sinon.SinonStub).restore();
+    })
+
+    it('Retorna um erro ao fazer uma requisição com inProgress=true sem existir Matchs no DB', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=true');
+      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find any Matchs' });
+      expect(chaiHttpResponse.status).to.be.equal(404);
+    });
+    it('Retorna um erro ao fazer uma requisição com inProgress=true sem existir Matchs no DB', async () => {
+      chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=false');
+      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find any Matchs' });
+      expect(chaiHttpResponse.status).to.be.equal(404);
+    });
+  })
 });
