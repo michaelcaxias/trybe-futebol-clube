@@ -16,6 +16,9 @@ export const schemeLogin = Joi.object({
 
 const validateLogin = async (req: Request, res: Response, next: NextFunction) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(401).json({ message: ErrorMessage.NOT_EMPTY });
+  }
   const { error } = schemeLogin.validate({ email, password });
   if (error) {
     return res.status(401).json({ message: error.message });
