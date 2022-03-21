@@ -29,15 +29,17 @@ class App {
     this.app.use(accessControl);
     this.app.use(express.json());
     this.app.use(cors());
-  }
 
-  public start(PORT: string | number):void {
+    this.app.route('/clubs').get(Club.getTeams);
     this.app.route('/login').post(ValidateLogin, Login.checkLogin);
     this.app.route('/login/validate').get(Login.validate);
-    this.app.route('/clubs').get(Club.getTeams);
     this.app.route('/clubs/:id').get(validateId, Club.getTeamById);
     this.app.route('/matchs').get(Match.getMatchs, Match.getMatchsByProgress)
       .post(validateMatch, Match.postMatch);
+    this.app.route('/matchs/:id/finish').patch();
+  }
+
+  public start(PORT: string | number):void {
     this.app.listen(PORT, () => {
       console.log(`Rodando na porta ${PORT}`);
     });
