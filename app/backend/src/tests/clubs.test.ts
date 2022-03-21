@@ -1,5 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
+import * as ClubServices from '../database/services/ClubServices';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
@@ -8,6 +9,7 @@ import { Response } from 'superagent';
 
 import { clubsGetMock } from './mocks';
 import Clubs from '../database/models/Clubs';
+import { responseValidate } from '../database/utils/';
 
 chai.use(chaiHttp);
 
@@ -18,6 +20,15 @@ describe('Testa uso do endpoint /clubs', () => {
   let chaiHttpResponse: Response;
   
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    before(() => {
+      sinon.stub(Clubs, "findAll").resolves(clubsGetMock as Clubs[])
+      sinon.stub(ClubServices, "getTeams").resolves(responseValidate(200, '', clubsGetMock))
+    })
+
+    after(() => {
+      (Clubs.findAll as sinon.SinonStub).restore();
+      (ClubServices.getTeams as sinon.SinonStub).restore();
+    })
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs');
       expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock);
@@ -27,10 +38,12 @@ describe('Testa uso do endpoint /clubs', () => {
   describe('Verifica funcionamento do método GET em casos de erro', () => {
     before(() => {
       sinon.stub(Clubs, "findAll").resolves([]);
+      sinon.stub(ClubServices, "getTeams").resolves(responseValidate(404, 'Could not find any Teams'))
     })
 
     after(() => {
       (Clubs.findAll as sinon.SinonStub).restore();
+      (ClubServices.getTeams as sinon.SinonStub).restore();
     })
 
     it('Retorna um erro ao fazer uma requisição sem existir clubs no DB', async () => {
@@ -46,6 +59,15 @@ describe('Testa uso do endpoint /clubs/:id', () => {
   let chaiHttpResponse: Response;
   
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    before(() => {
+      sinon.stub(Clubs, "findAll").resolves([clubsGetMock[0]] as Clubs[]);
+      sinon.stub(ClubServices, "getTeamById").resolves(responseValidate(200, '', clubsGetMock[0]))
+    })
+
+    after(() => {
+      (Clubs.findAll as sinon.SinonStub).restore();
+      (ClubServices.getTeamById as sinon.SinonStub).restore();
+    })
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/1');
       expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock[0]);
@@ -53,6 +75,15 @@ describe('Testa uso do endpoint /clubs/:id', () => {
     });
   })
   describe('Verifica funcionamento do método GET em casos de erro', () => {
+    before(() => {
+      sinon.stub(Clubs, "findAll").resolves([]);
+      sinon.stub(ClubServices, "getTeamById").resolves(responseValidate(200, 'Could not find a Team with this id'))
+    })
+
+    after(() => {
+      (Clubs.findAll as sinon.SinonStub).restore();
+      (ClubServices.getTeamById as sinon.SinonStub).restore();
+    })
     it('Retorna um erro ao fazer uma requisição usando um id inexistente', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/100');
       expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find a Team with this id' });
