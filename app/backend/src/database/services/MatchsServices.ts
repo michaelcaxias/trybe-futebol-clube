@@ -40,14 +40,21 @@ export const postMatch = async (newMatch: IMatch, token: string): Promise<IResVa
   try {
     const user = await verifyJWT(token);
 
-    if (!user) {
-      return responseValidate(401, ErrorMessage.INVALID_TOKEN);
+    if (!user) { return responseValidate(401, ErrorMessage.INVALID_TOKEN); }
+
+    const [getHomeTeam, getAwayTeam] = await Promise.all([
+      Clubs.findOne({ where: { id: newMatch.homeTeam } }),
+      Clubs.findOne({ where: { id: newMatch.awayTeam } }),
+    ]);
+
+    if (!getHomeTeam || !getAwayTeam) {
+      return responseValidate(404, 'Team not found');
     }
+
     const createNewGame = await Matchs.create(newMatch);
 
-    if (!createNewGame) {
-      return responseValidate(400, 'Could not create the match specified');
-    }
+    if (!createNewGame) { return responseValidate(400, 'Could not create the match specified'); }
+
     return responseValidate(201, '', createNewGame);
   } catch (error) { return responseValidate(401, ErrorMessage.INVALID_TOKEN); }
 };
