@@ -1,6 +1,5 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import * as ClubServices from '../database/services/ClubServices';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
@@ -9,7 +8,6 @@ import { Response } from 'superagent';
 
 import { clubsGetMock } from './mocks';
 import Clubs from '../database/models/Clubs';
-import { responseValidate } from '../database/utils/';
 
 chai.use(chaiHttp);
 
