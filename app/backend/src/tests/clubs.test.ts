@@ -22,13 +22,12 @@ describe('Testa uso do endpoint /clubs', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     before(() => {
       sinon.stub(Clubs, "findAll").resolves(clubsGetMock as Clubs[])
-      sinon.stub(ClubServices, "getTeams").resolves(responseValidate(200, '', clubsGetMock))
     })
 
     after(() => {
       (Clubs.findAll as sinon.SinonStub).restore();
-      (ClubServices.getTeams as sinon.SinonStub).restore();
     })
+
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs');
       expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock);
@@ -38,17 +37,15 @@ describe('Testa uso do endpoint /clubs', () => {
   describe('Verifica funcionamento do método GET em casos de erro', () => {
     before(() => {
       sinon.stub(Clubs, "findAll").resolves([]);
-      sinon.stub(ClubServices, "getTeams").resolves(responseValidate(404, 'Could not find any Teams'))
     })
 
     after(() => {
       (Clubs.findAll as sinon.SinonStub).restore();
-      (ClubServices.getTeams as sinon.SinonStub).restore();
     })
 
     it('Retorna um erro ao fazer uma requisição sem existir clubs no DB', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs');
-      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find any Teams' });
+      expect(chaiHttpResponse.body).to.deep.equal({ message: 'Could not find any Teams' });
       expect(chaiHttpResponse.status).to.be.equal(404);
     });
   })
@@ -61,37 +58,35 @@ describe('Testa uso do endpoint /clubs/:id', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     before(() => {
       sinon.stub(Clubs, "findAll").resolves([clubsGetMock[0]] as Clubs[]);
-      sinon.stub(ClubServices, "getTeamById").resolves(responseValidate(200, '', clubsGetMock[0]))
     })
 
     after(() => {
       (Clubs.findAll as sinon.SinonStub).restore();
-      (ClubServices.getTeamById as sinon.SinonStub).restore();
     })
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/1');
-      expect(chaiHttpResponse.body).to.deep.equal(clubsGetMock[0]);
+      expect(chaiHttpResponse.body).to.deep.equal([clubsGetMock[0]]);
       expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
   describe('Verifica funcionamento do método GET em casos de erro', () => {
     before(() => {
       sinon.stub(Clubs, "findAll").resolves([]);
-      sinon.stub(ClubServices, "getTeamById").resolves(responseValidate(200, 'Could not find a Team with this id'))
+      sinon.stub(Clubs, "findOne").resolves();
     })
 
     after(() => {
       (Clubs.findAll as sinon.SinonStub).restore();
-      (ClubServices.getTeamById as sinon.SinonStub).restore();
+      (Clubs.findOne as sinon.SinonStub).restore();
     })
     it('Retorna um erro ao fazer uma requisição usando um id inexistente', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/100');
-      expect(chaiHttpResponse.body).to.be.equal({ message: 'Could not find a Team with this id' });
-      expect(chaiHttpResponse.status).to.be.equal(400);
+      expect(chaiHttpResponse.body).to.deep.equal({ message: 'Could not find a Team with this id' });
+      expect(chaiHttpResponse.status).to.be.equal(404);
     });
     it('Retorna um erro ao fazer uma requisição usando uma string no lugar de um numero', async () => {
       chaiHttpResponse = await chai.request(app).get('/clubs/naosouumnumero');
-      expect(chaiHttpResponse.body).to.be.equal({ message: "\"id\" must be a number" });
+      expect(chaiHttpResponse.body).to.deep.equal({ message: "\"id\" must be a number" });
       expect(chaiHttpResponse.status).to.be.equal(400);
     });
   })
