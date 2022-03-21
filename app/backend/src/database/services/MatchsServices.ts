@@ -48,7 +48,7 @@ export const postMatch = async (newMatch: IMatch, token: string): Promise<IResVa
     ]);
 
     if (!getHomeTeam || !getAwayTeam) {
-      return responseValidate(404, 'Team not found');
+      return responseValidate(401, 'There is no team with such id!');
     }
 
     const createNewGame = await Matchs.create(newMatch);

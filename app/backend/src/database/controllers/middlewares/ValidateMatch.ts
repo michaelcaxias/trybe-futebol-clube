@@ -30,7 +30,7 @@ const validateMatch = async (req: Request, res: Response, next: NextFunction) =>
   }
   const verifyEquality = verifyEqualityOfTeams(homeTeam, awayTeam);
   if (verifyEquality) {
-    return res.status(409).json({ message: verifyEquality });
+    return res.status(401).json({ message: verifyEquality });
   }
   return next();
 };
