@@ -15,6 +15,11 @@ export const schemeMatch = Joi.object({
   }),
 }).strict();
 
+const verifyEqualityOfTeams = (firstTeam: number, secondTeam: number) => {
+  const ERROR_MESSAGE = 'It is not possible to create a match with two equal teams';
+  return firstTeam === secondTeam ? ERROR_MESSAGE : '';
+};
+
 const validateMatch = async (req: Request, res: Response, next: NextFunction) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
   const authorization = req.headers.authorization || '';
@@ -22,6 +27,10 @@ const validateMatch = async (req: Request, res: Response, next: NextFunction) =>
   const { error } = schemeMatch.validate({ ...match, authorization });
   if (error) {
     return res.status(401).json({ message: error.message });
+  }
+  const verifyEquality = verifyEqualityOfTeams(homeTeam, awayTeam);
+  if (verifyEquality) {
+    return res.status(409).json({ message: verifyEquality });
   }
   return next();
 };
