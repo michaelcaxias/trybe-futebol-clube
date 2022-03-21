@@ -8,6 +8,7 @@ import { app } from '../app';
 import { Response } from 'superagent';
 import Users from '../database/models/Users';
 import { userFindOneMock, mockResponseLogin } from './mocks';
+import { responseValidate } from '../database/utils/';
 
 chai.use(chaiHttp);
 
@@ -21,9 +22,7 @@ describe('Testa uso do endpoint /login', () => {
   describe('Verifica funcionamento do método POST em casos de sucesso', () => {
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-      sinon.stub(UserServices, 'getUserById').resolves({
-        status: 200, message: '', data: mockResponseLogin,
-      });
+      sinon.stub(UserServices, 'getUserById').resolves(responseValidate(200, '', mockResponseLogin));
     })
      
     after(async () => {
@@ -33,7 +32,7 @@ describe('Testa uso do endpoint /login', () => {
     
     payload = {
       email: "admin@admin.com",
-      password: "$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAE"
+      password: "secret_admin"
     }
 
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
@@ -44,13 +43,13 @@ describe('Testa uso do endpoint /login', () => {
   })
 
   describe('Verifica funcionamento do método POST em casos de falha', () => {
-
-    
     before(async () => {
+      sinon.stub(UserServices, 'getUserById').resolves(responseValidate(400, 'All fields must be filled'));
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
     })
 
     after(async () => {
+      (UserServices.getUserById as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
     })
     
@@ -82,7 +81,7 @@ describe('Testa uso do endpoint /login/validate', () => {
  
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-      sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 200, message: "", data: "admin" });
+      sinon.stub(UserServices, 'getRoleByToken').resolves(responseValidate(200, '', "admin"));
     })
     
     after(async () => {
@@ -104,7 +103,7 @@ describe('Testa uso do endpoint /login/validate', () => {
 
     before(async () => {
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-      sinon.stub(UserServices, 'getRoleByToken').resolves({ status: 401, message: "Incorrect token", data: {}});
+      sinon.stub(UserServices, 'getRoleByToken').resolves(responseValidate(401, "Incorrect token"));
     })
     
     after(async () => {
