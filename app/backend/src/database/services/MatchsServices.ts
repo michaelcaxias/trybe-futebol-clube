@@ -49,7 +49,7 @@ export const postMatch = async (newMatch: IMatch, token: string): Promise<IResVa
     if (!createNewGame) {
       return responseValidate(400, 'Could not create the match specified');
     }
-    return responseValidate(200, '', createNewGame);
+    return responseValidate(201, '', createNewGame);
   } catch (error) {
     return responseValidate(401, ErrorMessage.INVALID_TOKEN);
   }
