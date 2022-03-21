@@ -1,5 +1,6 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
+import * as MatchsServices from '../database/services/MatchsServices';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
@@ -7,6 +8,7 @@ import { Response } from 'superagent';
 
 import Matchs from '../database/models/Matchs';
 import Users from '../database/models/Users';
+import { responseValidate } from '../database/utils/';
 
 import {
   matchsGetMock,
@@ -29,10 +31,12 @@ describe('Testa uso do endpoint /matchs', () => {
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     before(async () => {
       sinon.stub(Matchs, "findAll").resolves(matchFindAll as Matchs[]);
+      sinon.stub(MatchsServices, "getMatchs").resolves(responseValidate(200, '', matchFindAll));
     })
 
     after((async () => {
       (Matchs.findAll as sinon.SinonStub).restore();
+      (MatchsServices.getMatchs as sinon.SinonStub).restore();
     }))
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs');
@@ -46,20 +50,24 @@ describe('Testa uso do endpoint /matchs', () => {
     const authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzcyNTQ4N30.liM1Oa_nEGRshFcjd4gz8JWPoTHXKML-dATZVOzKb2A"
 
     before(async () => {
+      sinon.stub(MatchsServices, "postMatch").resolves(responseValidate(200, '', matchPostMock));
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+      sinon.stub(Matchs, "create").resolves(matchFindAll[0] as Matchs);
     })
 
     after((async () => {
+      (MatchsServices.getMatchs as sinon.SinonStub).restore();
+      (Matchs.create as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
     }))
 
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
       payload = {
         homeTeam: 16,
+        homeTeamGoals: 1,
         awayTeam: 8,
-        homeTeamGoals: 2,
-        awayTeamGoals: 2,
-        inProgress: true
+        awayTeamGoals: 1,
+        inProgress: false,
       }
       chaiHttpResponse = await chai.request(app).post('/matchs').send(payload).set('Authorization', authorization);
       expect(chaiHttpResponse.body).to.deep.equal(matchPostMock);
@@ -68,13 +76,15 @@ describe('Testa uso do endpoint /matchs', () => {
   })
 
   describe('Verifica funcionamento do método GET em casos de erro', () => {
-    before(() => {
-      sinon.stub(Matchs, "findAll").resolves([]);
+    before(async () => {
+      sinon.stub(MatchsServices, "getMatchs").resolves(responseValidate(404, '', 'Could not find any Matchs'));
+      sinon.stub(Matchs, "findAll").resolves();
     })
 
-    after(() => {
+    after((async () => {
+      (MatchsServices.getMatchs as sinon.SinonStub).restore();
       (Matchs.findAll as sinon.SinonStub).restore();
-    })
+    }))
 
     it('Retorna um erro ao fazer uma requisição sem existir Matchs no DB', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs');
@@ -86,11 +96,15 @@ describe('Testa uso do endpoint /matchs', () => {
   describe('Verifica funcionamento do método POST em casos de falha', () => {
     let authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTY0NzcyNTQ4N30.liM1Oa_nEGRshFcjd4gz8JWPoTHXKML-dATZVOzKb2A"
 
-    before( async () => {
+    before(async () => {
+      sinon.stub(MatchsServices, "postMatch").resolves(responseValidate(401, "Invalid Token"));
       sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
+      sinon.stub(Matchs, "create").resolves();
     })
 
     after((async () => {
+      (MatchsServices.getMatchs as sinon.SinonStub).restore();
+      (Matchs.create as sinon.SinonStub).restore();
       (Users.findOne as sinon.SinonStub).restore();
     }))
 
@@ -125,6 +139,15 @@ describe('Testa uso do endpoint /matchs?inProgress', () => {
   let chaiHttpResponse: Response;
 
   describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    before(async () => {
+      sinon.stub(MatchsServices, "getMatchsByProgress").resolves(responseValidate(200, '', matchsGetMock));
+      sinon.stub(Matchs, "findAll").resolves(matchFindAll as Matchs[]);
+    })
+
+    after((async () => {
+      (MatchsServices.getMatchsByProgress as sinon.SinonStub).restore();
+      (Matchs.findAll as sinon.SinonStub).restore();
+    }))
     it('Retorna os dados esperados ao fazer uma requisição correta utilizando inProgress=true', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=true');
       expect(chaiHttpResponse.body).to.deep.equal(matchsGetProgressTrue);
@@ -137,13 +160,15 @@ describe('Testa uso do endpoint /matchs?inProgress', () => {
     });
   })
   describe('Verifica funcionamento do método GET em casos de erro', () => {
-    before(() => {
+    before(async () => {
+      sinon.stub(MatchsServices, "getMatchsByProgress").resolves(responseValidate(404, 'Could not find any Matchs'));
       sinon.stub(Matchs, "findAll").resolves([]);
     })
 
-    after(() => {
+    after((async () => {
+      (MatchsServices.getMatchsByProgress as sinon.SinonStub).restore();
       (Matchs.findAll as sinon.SinonStub).restore();
-    })
+    }))
 
     it('Retorna um erro ao fazer uma requisição com inProgress=true sem existir Matchs no DB', async () => {
       chaiHttpResponse = await chai.request(app).get('/matchs/?inProgress=true');
