@@ -2,7 +2,7 @@ export const userFindOneMock = {
   id: 1,
   username: "Admin",
   role: "admin",
-  password: "123456",
+  password: "secret_admin",
   email: "admin@admin.com",
 };
 
@@ -13,7 +13,8 @@ export const mockResponseLogin = {
     role: "admin",
     email: "admin@admin.com",
   },
-  token: "123.456.789",
+  token:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
 };
 
 export const clubsGetMock = [
