@@ -58,3 +58,13 @@ export const postMatch = async (newMatch: IMatch, token: string): Promise<IResVa
     return responseValidate(201, '', createNewGame);
   } catch (error) { return responseValidate(401, ErrorMessage.INVALID_TOKEN); }
 };
+
+type EditMatch = { id: number, homeTeamGoals: string, awayTeamGoals: string };
+
+export const editMatch = async ({ id, homeTeamGoals, awayTeamGoals }: EditMatch) => {
+  const match = await Matchs.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  if (!match) {
+    return responseValidate(404, 'Match not found');
+  }
+  return responseValidate(200, '', match);
+};
