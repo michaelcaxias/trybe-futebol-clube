@@ -6,9 +6,9 @@ import IMatch from '../../interfaces/IMatch';
 export const schemeMatch = Joi.object({
   homeTeam: Joi.number().required(),
   awayTeam: Joi.number().required(),
-  homeTeamGoals: Joi.number(),
-  awayTeamGoals: Joi.number(),
-  inProgress: Joi.boolean(),
+  homeTeamGoals: Joi.number().required(),
+  awayTeamGoals: Joi.number().required(),
+  inProgress: Joi.boolean().required(),
   authorization: Joi.string().required().messages({
     'string.required': ErrorMessage.INVALID_TOKEN,
     'string.empty': ErrorMessage.INVALID_TOKEN,
@@ -21,7 +21,7 @@ const verifyEqualityOfTeams = (firstTeam: number, secondTeam: number) => {
 };
 
 const validateMatch = async (req: Request, res: Response, next: NextFunction) => {
-  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress }: IMatch = req.body;
+  const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
   const authorization = req.headers.authorization || '';
   const match: IMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress };
   const { error } = schemeMatch.validate({ ...match, authorization });
