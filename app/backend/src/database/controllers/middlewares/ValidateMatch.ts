@@ -6,19 +6,27 @@ import IMatch from '../../interfaces/IMatch';
 export const schemeMatch = Joi.object({
   homeTeam: Joi.number().required(),
   awayTeam: Joi.number().required(),
-  homeTeamGoals: Joi.number().required(),
-  awayTeamGoals: Joi.number().required(),
-  inProgress: Joi.boolean().required(),
+  homeTeamGoals: Joi.number().required().messages({
+    'number.required': ErrorMessage.NO_ID,
+    'number.empty': ErrorMessage.NO_ID,
+  }),
+  awayTeamGoals: Joi.number().required().messages({
+    'number.required': ErrorMessage.NO_ID,
+    'number.empty': ErrorMessage.NO_ID,
+  }),
+  inProgress: Joi.boolean().required().messages({
+    'string.required': ErrorMessage.NO_ID,
+    'string.empty': ErrorMessage.NO_ID,
+  }),
   authorization: Joi.string().required().messages({
     'string.required': ErrorMessage.INVALID_TOKEN,
     'string.empty': ErrorMessage.INVALID_TOKEN,
   }),
 }).strict();
 
-const verifyEqualityOfTeams = (firstTeam: number, secondTeam: number) => {
-  const ERROR_MESSAGE = 'It is not possible to create a match with two equal teams';
-  return firstTeam === secondTeam ? ERROR_MESSAGE : '';
-};
+const verifyEqualityOfTeams = (firstTeam: number, secondTeam: number) => (
+  firstTeam === secondTeam ? ErrorMessage.TEAMS_CONFLIT : ''
+);
 
 const validateMatch = async (req: Request, res: Response, next: NextFunction) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
