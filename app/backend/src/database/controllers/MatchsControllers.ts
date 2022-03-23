@@ -49,3 +49,12 @@ export const editMatch = async (req: Request, res: Response) => {
   }
   return res.status(status).json(data);
 };
+
+export const finishMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { status, message, data } = await MatchServices.finishMatch(Number(id));
+  if (status >= 400) {
+    return res.status(status).json({ message });
+  }
+  return res.status(status).json(data);
+};
