@@ -11,7 +11,7 @@ export const getMatchs = async (req: Request, res: Response, next: NextFunction)
   if (status >= 400) {
     return res.status(status).json({ message });
   }
-  return res.status(200).json(data);
+  return res.status(status).json(data);
 };
 
 export const getMatchsByProgress = async (req: Request, res: Response) => {
@@ -24,7 +24,7 @@ export const getMatchsByProgress = async (req: Request, res: Response) => {
   if (status >= 400) {
     return res.status(status).json({ message });
   }
-  return res.status(200).json(data);
+  return res.status(status).json(data);
 };
 
 export const postMatch = async (req: Request, res: Response) => {
@@ -35,5 +35,17 @@ export const postMatch = async (req: Request, res: Response) => {
   if (status >= 400) {
     return res.status(status).json({ message });
   }
-  return res.status(201).json(data);
+  return res.status(status).json(data);
+};
+
+export const editMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+  const { status, message, data } = await MatchServices.editMatch({
+    id: Number(id), homeTeamGoals, awayTeamGoals,
+  });
+  if (status >= 400) {
+    return res.status(status).json({ message });
+  }
+  return res.status(status).json(data);
 };
