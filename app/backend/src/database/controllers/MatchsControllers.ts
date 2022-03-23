@@ -35,5 +35,5 @@ export const postMatch = async (req: Request, res: Response) => {
   if (status >= 400) {
     return res.status(status).json({ message });
   }
-  return res.status(200).json(data);
+  return res.status(201).json(data);
 };
