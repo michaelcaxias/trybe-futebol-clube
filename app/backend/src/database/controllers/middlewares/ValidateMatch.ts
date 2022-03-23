@@ -1,23 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import * as Joi from 'joi';
 import ErrorMessage from '../../utils/ErrorMessage';
-import IMatch from '../../interfaces/IMatch';
 
 export const schemeMatch = Joi.object({
-  homeTeam: Joi.number().required(),
-  awayTeam: Joi.number().required(),
-  homeTeamGoals: Joi.number().required().messages({
-    'number.required': ErrorMessage.NO_ID,
-    'number.empty': ErrorMessage.NO_ID,
-  }),
-  awayTeamGoals: Joi.number().required().messages({
-    'number.required': ErrorMessage.NO_ID,
-    'number.empty': ErrorMessage.NO_ID,
-  }),
-  inProgress: Joi.boolean().required().messages({
-    'string.required': ErrorMessage.NO_ID,
-    'string.empty': ErrorMessage.NO_ID,
-  }),
+  homeTeam: Joi.required(),
+  awayTeam: Joi.required(),
   authorization: Joi.string().required().messages({
     'string.required': ErrorMessage.INVALID_TOKEN,
     'string.empty': ErrorMessage.INVALID_TOKEN,
@@ -28,10 +15,15 @@ const verifyEqualityOfTeams = (firstTeam: number, secondTeam: number) => (
   firstTeam === secondTeam ? ErrorMessage.TEAMS_CONFLIT : ''
 );
 
+type MatchJoi = { homeTeam: number | string, awayTeam: number | string };
+
 const validateMatch = async (req: Request, res: Response, next: NextFunction) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
+  if (!awayTeamGoals || !homeTeamGoals || !inProgress) {
+    return res.status(401).json({ message: ErrorMessage.NO_ID });
+  }
   const authorization = req.headers.authorization || '';
-  const match: IMatch = { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress };
+  const match: MatchJoi = { homeTeam, awayTeam };
   const { error } = schemeMatch.validate({ ...match, authorization });
   if (error) {
     return res.status(401).json({ message: error.message });
