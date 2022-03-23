@@ -68,3 +68,11 @@ export const editMatch = async ({ id, homeTeamGoals, awayTeamGoals }: EditMatch)
   }
   return responseValidate(200, '', { success: 'Match edited successfully' });
 };
+
+export const finishMatch = async (id: number) => {
+  const match = await Matchs.update({ inProgress: false }, { where: { id } });
+  if (!match) {
+    return responseValidate(404, 'Match not found');
+  }
+  return responseValidate(200, '', { success: 'Match finished successfully' });
+};
