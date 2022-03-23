@@ -36,7 +36,7 @@ class App {
     this.app.route('/clubs/:id').get(validateId, Club.getTeamById);
     this.app.route('/matchs').get(Match.getMatchs, Match.getMatchsByProgress)
       .post(validateMatch, Match.postMatch);
-    this.app.route('/matchs/:id/finish').patch();
+    this.app.route('/matchs/:id').patch(Match.editMatch);
   }
 
   public start(PORT: string | number):void {
