@@ -66,5 +66,5 @@ export const editMatch = async ({ id, homeTeamGoals, awayTeamGoals }: EditMatch)
   if (!match) {
     return responseValidate(404, 'Match not found');
   }
-  return responseValidate(200, '', match);
+  return responseValidate(200, '', { success: 'Match edited successfully' });
 };
