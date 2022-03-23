@@ -37,6 +37,7 @@ class App {
     this.app.route('/matchs').get(Match.getMatchs, Match.getMatchsByProgress)
       .post(validateMatch, Match.postMatch);
     this.app.route('/matchs/:id').patch(Match.editMatch);
+    this.app.route('/matchs/:id/finish').patch(Match.finishMatch);
   }
 
   public start(PORT: string | number):void {
