@@ -25,11 +25,13 @@ export const getHomeTeamPoints = (matchs: Matchs[]) => {
 };
 
 const formatLeaderboards = async (id: number, name: string) => {
-  const matchsTeam = await Matchs.findAll({ where: { homeTeam: id } });
+  const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
   const teamPoints = getHomeTeamPoints(matchsTeam);
+  const totalGames = matchsTeam.length;
   return {
     name,
     ...teamPoints,
+    totalGames,
   };
 };
 
