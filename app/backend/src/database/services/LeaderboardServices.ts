@@ -3,28 +3,30 @@ import Clubs from '../models/Clubs';
 // import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
 
-export const getHomeTeamPoints = (match: Matchs) => {
+export const getHomeTeamPoints = (matchs: Matchs[]) => {
   let totalPoints = 0;
   let totalVictories = 0;
   let totalDraws = 0;
   let totalLosses = 0;
 
-  if (match.homeTeamGoals > match.awayTeamGoals) {
-    totalPoints += 3;
-    totalVictories += 1;
-  }
-  if (match.homeTeamGoals === match.awayTeamGoals) {
-    totalDraws += 1;
-  } else {
-    totalLosses += 1;
-  }
+  matchs.forEach((match) => {
+    if (match.homeTeamGoals > match.awayTeamGoals) {
+      totalPoints += 3;
+      totalVictories += 1;
+    }
+    if (match.homeTeamGoals === match.awayTeamGoals) {
+      totalDraws += 1;
+    } else {
+      totalLosses += 1;
+    }
+  });
 
   return { totalPoints, totalVictories, totalDraws, totalLosses };
 };
 
 const formatLeaderboards = async (id: number, name: string) => {
-  const matchTeam = await Matchs.findOne({ where: { homeTeam: id } });
-  const teamPoints = getHomeTeamPoints(matchTeam);
+  const matchsTeam = await Matchs.findAll({ where: { homeTeam: id } });
+  const teamPoints = getHomeTeamPoints(matchsTeam);
   return {
     name,
     ...teamPoints,
