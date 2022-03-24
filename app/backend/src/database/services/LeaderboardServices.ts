@@ -57,7 +57,7 @@ const formatLeaderboards = async (id: number, name: string): Promise<ILeaderboar
 
 const sortClubsLeaderboard = (clubs: ILeaderboard[]) => (
   clubs.sort((a, b) => {
-    let sortingTiebreaker = b.totalVictories - a.totalVictories;
+    let sortingTiebreaker = b.totalPoints - a.totalPoints;
     if (sortingTiebreaker === 0) {
       sortingTiebreaker = b.goalsBalance - a.goalsBalance;
       if (sortingTiebreaker === 0) {
