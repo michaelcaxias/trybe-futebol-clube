@@ -3,7 +3,7 @@ import Clubs from '../models/Clubs';
 // import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
 
-export const getHomeTeamPoints = (match: Matchs[]) => {
+export const getHomeTeamPoints = (match: Matchs) => {
   let totalPoints = 0;
   let totalVictories = 0;
   let totalDraws = 0;
@@ -24,7 +24,7 @@ export const getHomeTeamPoints = (match: Matchs[]) => {
 
 const formatLeaderboards = async (id: number, name: string) => {
   const matchTeam = await Matchs.findOne({ where: { homeTeam: id } });
-  const teamPoints = getHomeTeamPoints(matchTeam as Matchs);
+  const teamPoints = getHomeTeamPoints(matchTeam);
   return {
     name,
     ...teamPoints,
