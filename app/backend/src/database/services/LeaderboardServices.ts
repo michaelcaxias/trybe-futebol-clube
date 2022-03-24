@@ -1,7 +1,8 @@
 import { responseValidate } from '../utils';
 import Clubs from '../models/Clubs';
-// import IResValidate from '../interfaces/IResponseValidate';
+import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
+import ILeaderboard from '../interfaces/ILeaderboard';
 
 export const getHomeTeamPoints = (matchs: Matchs[]) => {
   let totalPoints = 0;
@@ -16,6 +17,7 @@ export const getHomeTeamPoints = (matchs: Matchs[]) => {
     }
     if (match.homeTeamGoals === match.awayTeamGoals) {
       totalDraws += 1;
+      totalPoints += 1;
     } else {
       totalLosses += 1;
     }
@@ -54,7 +56,11 @@ const formatLeaderboards = async (id: number, name: string) => {
   };
 };
 
-export const getAllLeaderboards = async () => {
+const sortClubsLeaderboard = (clubs: ILeaderboard[]) => (
+  clubs.sort((a, b) => b.totalPoints - a.totalPoints)
+);
+
+export const getAllLeaderboards = async (): Promise<IResValidate> => {
   const clubs = await Clubs.findAll();
 
   if (!clubs.length) {
@@ -64,5 +70,8 @@ export const getAllLeaderboards = async () => {
   const formatClubs = await Promise.all(
     clubs.map(async (club) => formatLeaderboards(club.id, club.clubName)),
   );
-  return responseValidate(200, '', formatClubs);
+
+  const sortedClubs = sortClubsLeaderboard(formatClubs);
+
+  return responseValidate(200, '', sortedClubs);
 };
