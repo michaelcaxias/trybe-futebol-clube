@@ -14,8 +14,7 @@ export const getHomeTeamPoints = (matchs: Matchs[]) => {
     if (match.homeTeamGoals > match.awayTeamGoals) {
       totalPoints += 3;
       totalVictories += 1;
-    }
-    if (match.homeTeamGoals === match.awayTeamGoals) {
+    } else if (match.homeTeamGoals === match.awayTeamGoals) {
       totalDraws += 1;
       totalPoints += 1;
     } else {
@@ -41,7 +40,7 @@ export const getHomeGoalsInfo = (matchs: Matchs[]) => {
   return { goalsFavor, goalsOwn, goalsBalance };
 };
 
-const formatLeaderboards = async (id: number, name: string) => {
+const formatLeaderboards = async (id: number, name: string): Promise<ILeaderboard> => {
   const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
   const teamPoints = getHomeTeamPoints(matchsTeam);
   const totalGames = matchsTeam.length;

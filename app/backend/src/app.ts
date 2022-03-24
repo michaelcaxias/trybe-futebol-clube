@@ -39,7 +39,7 @@ class App {
       .post(validateMatch, Match.postMatch);
     this.app.route('/matchs/:id').patch(Match.editMatch);
     this.app.route('/matchs/:id/finish').patch(Match.finishMatch);
-    this.app.route('/leaderboard').get(Leaderboard.getResult);
+    this.app.route('/leaderboard/home').get(Leaderboard.getResult);
   }
 
   public start(PORT: string | number):void {
