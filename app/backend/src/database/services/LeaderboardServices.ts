@@ -46,7 +46,7 @@ const formatLeaderboards = async (id: number, name: string) => {
   const teamPoints = getHomeTeamPoints(matchsTeam);
   const totalGames = matchsTeam.length;
   const goalsInfo = getHomeGoalsInfo(matchsTeam);
-  const efficiency = (teamPoints.totalPoints / totalGames) * 100;
+  const efficiency = Number(((teamPoints.totalPoints / totalGames) * 100).toFixed(2));
   return {
     name,
     ...teamPoints,
