@@ -32,8 +32,9 @@ export const getHomeGoalsInfo = (matchs: Matchs[]) => {
   matchs.forEach((match) => {
     goalsFavor += match.homeTeamGoals;
     goalsOwn += match.awayTeamGoals;
-    goalsBalance += match.homeTeamGoals - match.awayTeamGoals;
   });
+
+  goalsBalance = goalsFavor - goalsOwn;
 
   return { goalsFavor, goalsOwn, goalsBalance };
 };
