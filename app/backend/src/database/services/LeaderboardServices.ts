@@ -24,13 +24,29 @@ export const getHomeTeamPoints = (matchs: Matchs[]) => {
   return { totalPoints, totalVictories, totalDraws, totalLosses };
 };
 
+export const getHomeGoalsInfo = (matchs: Matchs[]) => {
+  let goalsFavor = 0;
+  let goalsOwn = 0;
+  let goalsBalance = 0;
+
+  matchs.forEach((match) => {
+    goalsFavor += match.homeTeamGoals;
+    goalsOwn += match.awayTeamGoals;
+    goalsBalance += match.homeTeamGoals - match.awayTeamGoals;
+  });
+
+  return { goalsFavor, goalsOwn, goalsBalance };
+};
+
 const formatLeaderboards = async (id: number, name: string) => {
   const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
   const teamPoints = getHomeTeamPoints(matchsTeam);
   const totalGames = matchsTeam.length;
+  const goalsInfo = getHomeGoalsInfo(matchsTeam);
   return {
     name,
     ...teamPoints,
+    ...goalsInfo,
     totalGames,
   };
 };
