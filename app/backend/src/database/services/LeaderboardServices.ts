@@ -44,11 +44,13 @@ const formatLeaderboards = async (id: number, name: string) => {
   const teamPoints = getHomeTeamPoints(matchsTeam);
   const totalGames = matchsTeam.length;
   const goalsInfo = getHomeGoalsInfo(matchsTeam);
+  const efficiency = (teamPoints.totalPoints / totalGames) * 100;
   return {
     name,
     ...teamPoints,
     ...goalsInfo,
     totalGames,
+    efficiency,
   };
 };
 
