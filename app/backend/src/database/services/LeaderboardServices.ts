@@ -56,7 +56,19 @@ const formatLeaderboards = async (id: number, name: string): Promise<ILeaderboar
 };
 
 const sortClubsLeaderboard = (clubs: ILeaderboard[]) => (
-  clubs.sort((a, b) => b.totalPoints - a.totalPoints)
+  clubs.sort((a, b) => {
+    let sortingTiebreaker = b.totalVictories - a.totalVictories;
+    if (sortingTiebreaker === 0) {
+      sortingTiebreaker = b.goalsBalance - a.goalsBalance;
+      if (sortingTiebreaker === 0) {
+        sortingTiebreaker = b.goalsFavor - a.goalsFavor;
+        if (sortingTiebreaker === 0) {
+          sortingTiebreaker = a.goalsOwn - b.goalsOwn;
+        }
+      }
+    }
+    return sortingTiebreaker;
+  })
 );
 
 export const getAllLeaderboards = async (): Promise<IResValidate> => {
