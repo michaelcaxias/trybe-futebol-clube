@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import validateMatch from '../database/controllers/middlewares/ValidateMatch';
-import * as Match from '../database/controllers/MatchsControllers';
+import Match from '../database/controllers/MatchsControllers';
 
 const router = Router();
 
