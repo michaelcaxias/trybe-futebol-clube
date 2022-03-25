@@ -24,7 +24,7 @@ export const getRoleByToken = async (token: string): Promise<IResValidate> => {
   }
 };
 
-export const getUserById = async ({ email, password }: UserBody): Promise<IResValidate> => {
+export const getUser = async ({ email, password }: UserBody): Promise<IResValidate> => {
   const user = await Users.findOne({ where: { email } });
 
   if (!user) { return responseValidate(401, ErrorMessage.INCORRECT_LOGIN); }

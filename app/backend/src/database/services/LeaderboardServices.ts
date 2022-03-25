@@ -40,7 +40,7 @@ export const getHomeGoalsInfo = (matchs: Matchs[]) => {
   return { goalsFavor, goalsOwn, goalsBalance };
 };
 
-const formatLeaderboards = async (id: number, name: string): Promise<ILeaderboard> => {
+const formatLeaderboardHome = async (id: number, name: string): Promise<ILeaderboard> => {
   const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
   const teamPoints = getHomeTeamPoints(matchsTeam);
   const totalGames = matchsTeam.length;
@@ -79,7 +79,7 @@ export const getLeaderboardHome = async (): Promise<IResValidate> => {
   }
 
   const formatClubs = await Promise.all(
-    clubs.map(async (club) => formatLeaderboards(club.id, club.clubName)),
+    clubs.map(async (club) => formatLeaderboardHome(club.id, club.clubName)),
   );
 
   const sortedClubs = sortClubsLeaderboard(formatClubs);

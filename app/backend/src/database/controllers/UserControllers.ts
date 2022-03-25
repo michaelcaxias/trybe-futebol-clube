@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as UserServices from '../services/UserServices';
 
-export default class Login {
+export default class User {
   static async login(req: Request, res: Response) {
     const { email, password } = req.body;
     const { status, message, data } = await UserServices.getUser({ email, password });
