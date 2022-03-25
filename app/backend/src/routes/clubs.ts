@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import validateId from '../database/controllers/middlewares/ValidateClub';
-import * as Club from '../database/controllers/ClubControllers';
+import Club from '../database/controllers/ClubControllers';
 
 const router = Router();
 
