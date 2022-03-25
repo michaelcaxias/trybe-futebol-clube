@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as Leaderboard from '../database/controllers/LeaderboardControllers';
+import Leaderboard from '../database/controllers/LeaderboardControllers';
 
 const router = Router();
 
