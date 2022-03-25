@@ -1,12 +1,9 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import * as Login from './database/controllers/LoginControllers';
-import * as Club from './database/controllers/ClubControllers';
-import * as Match from './database/controllers/MatchsControllers';
-import * as Leaderboard from './database/controllers/LeaderboardControllers';
-import ValidateLogin from './database/controllers/middlewares/ValidateLogin';
-import validateId from './database/controllers/middlewares/ValidateClub';
-import validateMatch from './database/controllers/middlewares/ValidateMatch';
+import loginRoute from './routes/login';
+import clubsRoute from './routes/clubs';
+import matchsRoute from './routes/matchs';
+import leaderboardRoute from './routes/leaderboard';
 
 class App {
   public app: express.Express;
@@ -31,15 +28,10 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
 
-    this.app.route('/clubs').get(Club.getTeams);
-    this.app.route('/login').post(ValidateLogin, Login.checkLogin);
-    this.app.route('/login/validate').get(Login.validate);
-    this.app.route('/clubs/:id').get(validateId, Club.getTeamById);
-    this.app.route('/matchs').get(Match.getMatchs, Match.getMatchsByProgress)
-      .post(validateMatch, Match.postMatch);
-    this.app.route('/matchs/:id').patch(Match.editMatch);
-    this.app.route('/matchs/:id/finish').patch(Match.finishMatch);
-    this.app.route('/leaderboard/home').get(Leaderboard.getResult);
+    this.app.use('/login', loginRoute);
+    this.app.use('/clubs', clubsRoute);
+    this.app.use('/matchs', matchsRoute);
+    this.app.use('/leaderboard', leaderboardRoute);
   }
 
   public start(PORT: string | number):void {
