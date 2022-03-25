@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe.only('Testa uso do endpoint /leaderboard/home', () => {
+describe('Testa uso do endpoint /leaderboard/home', () => {
 
   let chaiHttpResponse: Response;
 
