@@ -1,45 +1,68 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import * as bcryptjs from 'bcryptjs';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 
 import { Response } from 'superagent';
-import Users from '../database/models/Users';
-import { userFindOneMock, mockResponseLogin } from './mocks';
+
+import {
+  clubsGetMock,
+  matchFindAll
+} from './mocks';
+
+import Clubs from '../database/models/Clubs';
+import Matchs from '../database/models/Matchs';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testa uso do endpoint /leaderboard/home', () => {
+describe.only('Testa uso do endpoint /leaderboard/home', () => {
 
   let chaiHttpResponse: Response;
-  let payload = {};
-  
-  describe('Verifica funcionamento do método POST em casos de sucesso', () => {
+
+  describe('Verifica funcionamento do método GET em casos de sucesso', () => {
     before(async () => {
-      sinon.stub(Users, "findOne").resolves(userFindOneMock as Users);
-      sinon.stub(bcryptjs, "compare").resolves(true);
+      sinon.stub(Clubs, "findAll").resolves(clubsGetMock as Clubs[]);
+      sinon.stub(Matchs, "findAll").resolves(matchFindAll as Matchs[]);
     })
      
     after(async () => {
-      (Users.findOne as sinon.SinonStub).restore();
-      (bcryptjs.compare as sinon.SinonStub).restore();
+      (Clubs.findAll as sinon.SinonStub).restore();
+      (Matchs.findAll as sinon.SinonStub).restore();
     })
     
     it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
-      payload = {
-        email: "admin@admin.com",
-        password: "secret_admin"
-      }
-      chaiHttpResponse = await chai.request(app).post('/login').send(payload);
-      expect(chaiHttpResponse.body.user.id).to.be.equal(mockResponseLogin.user.id);
-      expect(chaiHttpResponse.body.user.username).to.be.equal(mockResponseLogin.user.username);
-      expect(chaiHttpResponse.body.user.role).to.be.equal(mockResponseLogin.user.role);
-      expect(chaiHttpResponse.body.token).to.be.contains(mockResponseLogin.token);
+      chaiHttpResponse = await chai.request(app).get('/leaderboard/home');
+      expect(chaiHttpResponse.body[0]).to.have.property('name')
+      expect(chaiHttpResponse.body[0]).to.have.property('totalPoints')
+      expect(chaiHttpResponse.body[0]).to.have.property('totalVictories')
+      expect(chaiHttpResponse.body[0]).to.have.property('totalDraws')
+      expect(chaiHttpResponse.body[0]).to.have.property('totalLosses')
+      expect(chaiHttpResponse.body[0]).to.have.property('goalsFavor')
+      expect(chaiHttpResponse.body[0]).to.have.property('goalsOwn')
+      expect(chaiHttpResponse.body[0]).to.have.property('goalsBalance')
+      expect(chaiHttpResponse.body[0]).to.have.property('totalGames')
+      expect(chaiHttpResponse.body[0]).to.have.property('efficiency')
       expect(chaiHttpResponse.status).to.be.equal(200);
+    });
+  })
+  describe('Verifica funcionamento do método GET em casos de sucesso', () => {
+    before(async () => {
+      sinon.stub(Clubs, "findAll").resolves([]);
+      sinon.stub(Matchs, "findAll").resolves([]);
+    })
+     
+    after(async () => {
+      (Clubs.findAll as sinon.SinonStub).restore();
+      (Matchs.findAll as sinon.SinonStub).restore();
+    })
+    
+    it('Retorna os dados esperados ao fazer uma requisição correta', async () => {
+      chaiHttpResponse = await chai.request(app).get('/leaderboard/home');
+      expect(chaiHttpResponse.body).to.deep.equal({ message: 'Clubs not found!' })
+      expect(chaiHttpResponse.status).to.be.equal(404);
     });
   })
 });
