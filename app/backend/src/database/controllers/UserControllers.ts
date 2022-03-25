@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import * as UserServices from '../services/UserServices';
+import UserServices from '../services/UserServices';
 
 export default class User {
   static async login(req: Request, res: Response) {
