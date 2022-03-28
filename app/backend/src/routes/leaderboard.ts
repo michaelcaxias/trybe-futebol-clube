@@ -4,5 +4,6 @@ import Leaderboard from '../database/controllers/LeaderboardControllers';
 const router = Router();
 
 router.get('/home', Leaderboard.getHome);
+router.get('/away', Leaderboard.getAway);
 
 export default router;
