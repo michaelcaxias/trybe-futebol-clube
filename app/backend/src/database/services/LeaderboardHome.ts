@@ -6,47 +6,11 @@ import ILeaderboard from '../interfaces/ILeaderboard';
 import Leaderboard from './Leaderboard';
 
 export default class LeaderboardHome extends Leaderboard {
-  static getTeamPoints(matchs: Matchs[]) {
-    let totalPoints = 0;
-    let totalVictories = 0;
-    let totalDraws = 0;
-    let totalLosses = 0;
-
-    matchs.forEach((match) => {
-      if (match.homeTeamGoals > match.awayTeamGoals) {
-        totalPoints += 3;
-        totalVictories += 1;
-      } else if (match.homeTeamGoals === match.awayTeamGoals) {
-        totalDraws += 1;
-        totalPoints += 1;
-      } else {
-        totalLosses += 1;
-      }
-    });
-
-    return { totalPoints, totalVictories, totalDraws, totalLosses };
-  }
-
-  static getGoalsInfo(matchs: Matchs[]) {
-    let goalsFavor = 0;
-    let goalsOwn = 0;
-    let goalsBalance = 0;
-
-    matchs.forEach((match) => {
-      goalsFavor += match.homeTeamGoals;
-      goalsOwn += match.awayTeamGoals;
-    });
-
-    goalsBalance = goalsFavor - goalsOwn;
-
-    return { goalsFavor, goalsOwn, goalsBalance };
-  }
-
-  static async formatLeaderboard(id: number, name: string): Promise<ILeaderboard> {
+  static async format(id: number, name: string): Promise<ILeaderboard> {
     const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
-    const teamPoints = this.getTeamPoints(matchsTeam);
+    const teamPoints = this.getTeamPoints(matchsTeam, 'homeTeamGoals', 'awayTeamGoals');
+    const goalsInfo = this.getGoalsInfo(matchsTeam, 'homeTeamGoals', 'awayTeamGoals');
     const totalGames = matchsTeam.length;
-    const goalsInfo = this.getGoalsInfo(matchsTeam);
     const efficiency = ((teamPoints.totalPoints / (totalGames * 3)) * 100).toFixed(2);
     return {
       name,
@@ -65,10 +29,10 @@ export default class LeaderboardHome extends Leaderboard {
     }
 
     const formatClubs = await Promise.all(
-      clubs.map(async (club) => this.formatLeaderboard(club.id, club.clubName)),
+      clubs.map(async (club) => this.format(club.id, club.clubName)),
     );
 
-    const sortedClubs = this.sortClubsLeaderboard(formatClubs);
+    const sortedClubs = this.sortClubs(formatClubs);
 
     return responseValidate(200, '', sortedClubs);
   }
