@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import LeaderboardServices from '../services/LeaderboardServices';
+import LeaderboardHome from '../services/LeaderboardHome';
 
 export default class LeaderboardControllers {
-  static async getResult(_req: Request, res: Response) {
-    const { status, message, data } = await LeaderboardServices.getLeaderboardHome();
+  static async getHome(_req: Request, res: Response) {
+    const { status, message, data } = await LeaderboardHome.get();
     if (status >= 400) {
       return res.status(status).json({ message });
     }

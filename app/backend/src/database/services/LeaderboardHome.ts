@@ -3,9 +3,10 @@ import Clubs from '../models/Clubs';
 import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
 import ILeaderboard from '../interfaces/ILeaderboard';
+import Leaderboard from './Leaderboard';
 
-export default class LeaderboardServices {
-  static getHomeTeamPoints(matchs: Matchs[]) {
+export default class LeaderboardHome extends Leaderboard {
+  static getTeamPoints(matchs: Matchs[]) {
     let totalPoints = 0;
     let totalVictories = 0;
     let totalDraws = 0;
@@ -26,7 +27,7 @@ export default class LeaderboardServices {
     return { totalPoints, totalVictories, totalDraws, totalLosses };
   }
 
-  static getHomeGoalsInfo(matchs: Matchs[]) {
+  static getGoalsInfo(matchs: Matchs[]) {
     let goalsFavor = 0;
     let goalsOwn = 0;
     let goalsBalance = 0;
@@ -41,11 +42,11 @@ export default class LeaderboardServices {
     return { goalsFavor, goalsOwn, goalsBalance };
   }
 
-  static async formatLeaderboardHome(id: number, name: string): Promise<ILeaderboard> {
-    const matchsTeam = await Matchs.findAll({ where: { homeTeam: id, inProgress: false } });
-    const teamPoints = this.getHomeTeamPoints(matchsTeam);
+  static async formatLeaderboard(id: number, name: string): Promise<ILeaderboard> {
+    const matchsTeam = await Matchs.findAll({ where: { awayTeam: id, inProgress: false } });
+    const teamPoints = this.getTeamPoints(matchsTeam);
     const totalGames = matchsTeam.length;
-    const goalsInfo = this.getHomeGoalsInfo(matchsTeam);
+    const goalsInfo = this.getGoalsInfo(matchsTeam);
     const efficiency = ((teamPoints.totalPoints / (totalGames * 3)) * 100).toFixed(2);
     return {
       name,
@@ -56,23 +57,7 @@ export default class LeaderboardServices {
     };
   }
 
-  static sortClubsLeaderboard(clubs: ILeaderboard[]) {
-    return clubs.sort((a, b) => {
-      let sortingTiebreaker = b.totalPoints - a.totalPoints;
-      if (sortingTiebreaker === 0) {
-        sortingTiebreaker = b.goalsBalance - a.goalsBalance;
-        if (sortingTiebreaker === 0) {
-          sortingTiebreaker = b.goalsFavor - a.goalsFavor;
-          if (sortingTiebreaker === 0) {
-            sortingTiebreaker = a.goalsOwn - b.goalsOwn;
-          }
-        }
-      }
-      return sortingTiebreaker;
-    });
-  }
-
-  static async getLeaderboardHome(): Promise<IResValidate> {
+  static async get(): Promise<IResValidate> {
     const clubs = await Clubs.findAll();
 
     if (!clubs.length) {
@@ -80,7 +65,7 @@ export default class LeaderboardServices {
     }
 
     const formatClubs = await Promise.all(
-      clubs.map(async (club) => this.formatLeaderboardHome(club.id, club.clubName)),
+      clubs.map(async (club) => this.formatLeaderboard(club.id, club.clubName)),
     );
 
     const sortedClubs = this.sortClubsLeaderboard(formatClubs);
