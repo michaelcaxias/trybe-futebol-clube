@@ -2,6 +2,12 @@ import ILeaderboard from '../interfaces/ILeaderboard';
 import Matchs from '../models/Matchs';
 
 type TeamGoals = 'homeTeamGoals' | 'awayTeamGoals';
+type FormatLeaderboard = {
+  matchsTeam: Matchs[],
+  name: string,
+  firstTeamGoals: TeamGoals,
+  secondTeamGoals: TeamGoals
+};
 
 export default class Leaderboard {
   static getTeamPoints(matchs: Matchs[], firstTeamGoals: TeamGoals, secondTeamGoals: TeamGoals) {
@@ -54,5 +60,21 @@ export default class Leaderboard {
       }
       return sortingTiebreaker;
     });
+  }
+
+  static async format({
+    matchsTeam, name, firstTeamGoals, secondTeamGoals,
+  }: FormatLeaderboard): Promise<ILeaderboard> {
+    const teamPoints = this.getTeamPoints(matchsTeam, firstTeamGoals, secondTeamGoals);
+    const totalGames = matchsTeam.length;
+    const goalsInfo = this.getGoalsInfo(matchsTeam, firstTeamGoals, secondTeamGoals);
+    const efficiency = ((teamPoints.totalPoints / (totalGames * 3)) * 100).toFixed(2);
+    return {
+      name,
+      ...teamPoints,
+      ...goalsInfo,
+      totalGames,
+      efficiency: Number(efficiency),
+    };
   }
 }

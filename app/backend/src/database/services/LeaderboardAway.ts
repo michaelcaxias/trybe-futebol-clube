@@ -2,25 +2,9 @@ import { responseValidate } from '../utils';
 import Clubs from '../models/Clubs';
 import IResValidate from '../interfaces/IResponseValidate';
 import Matchs from '../models/Matchs';
-import ILeaderboard from '../interfaces/ILeaderboard';
 import Leaderboard from './Leaderboard';
 
 export default class LeaderboardAway extends Leaderboard {
-  static async formatLeaderboard(id: number, name: string): Promise<ILeaderboard> {
-    const matchsTeam = await Matchs.findAll({ where: { awayTeam: id, inProgress: false } });
-    const teamPoints = this.getTeamPoints(matchsTeam, 'awayTeamGoals', 'homeTeamGoals');
-    const totalGames = matchsTeam.length;
-    const goalsInfo = this.getGoalsInfo(matchsTeam, 'awayTeamGoals', 'homeTeamGoals');
-    const efficiency = ((teamPoints.totalPoints / (totalGames * 3)) * 100).toFixed(2);
-    return {
-      name,
-      ...teamPoints,
-      ...goalsInfo,
-      totalGames,
-      efficiency: Number(efficiency),
-    };
-  }
-
   static async get(): Promise<IResValidate> {
     const clubs = await Clubs.findAll();
 
@@ -29,7 +13,17 @@ export default class LeaderboardAway extends Leaderboard {
     }
 
     const formatClubs = await Promise.all(
-      clubs.map(async (club) => this.formatLeaderboard(club.id, club.clubName)),
+      clubs.map(async (club) => {
+        const matchsTeam = await Matchs.findAll({ where: { awayTeam: club.id, inProgress: false },
+        });
+
+        return this.format({
+          matchsTeam,
+          name: club.clubName,
+          firstTeamGoals: 'awayTeamGoals',
+          secondTeamGoals: 'homeTeamGoals',
+        });
+      }),
     );
 
     const sortedClubs = this.sortClubs(formatClubs);
