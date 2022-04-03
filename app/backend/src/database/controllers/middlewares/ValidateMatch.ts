@@ -19,7 +19,7 @@ type MatchJoi = { homeTeam: number | string, awayTeam: number | string };
 
 const validateMatch = async (req: Request, res: Response, next: NextFunction) => {
   const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
-  if (!awayTeamGoals || !homeTeamGoals || !inProgress) {
+  if (awayTeamGoals === undefined || homeTeamGoals === undefined || !inProgress) {
     return res.status(401).json({ message: ErrorMessage.NO_ID });
   }
   const authorization = req.headers.authorization || '';
