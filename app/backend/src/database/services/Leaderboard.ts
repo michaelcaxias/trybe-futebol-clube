@@ -12,18 +12,6 @@ type FormatLeaderboard = {
 };
 
 export default class Leaderboard {
-  static formatTeam() {
-    return {
-      totalPoints: 0,
-      totalVictories: 0,
-      totalDraws: 0,
-      totalLosses: 0,
-      goalsFavor: 0,
-      goalsOwn: 0,
-      goalsBalance: 0,
-    };
-  }
-
   static getTeamPoints(match: Matchs, firstTeamGoals: TeamGoals, secondTeamGoals: TeamGoals) {
     let totalPoints = 0;
     let totalVictories = 0;
