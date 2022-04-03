@@ -4,10 +4,11 @@ import Matchs from '../models/Matchs';
 
 type TeamGoals = 'homeTeamGoals' | 'awayTeamGoals';
 type FormatLeaderboard = {
+  id: number,
   matchsTeam: Matchs[],
   name: string,
-  firstTeamGoals: TeamGoals,
-  secondTeamGoals: TeamGoals
+  findByHome: boolean,
+  findByAway: boolean
 };
 
 export default class Leaderboard {
@@ -65,7 +66,7 @@ export default class Leaderboard {
   }
 
   static async format({
-    matchsTeam, name, firstTeamGoals, secondTeamGoals,
+    id, matchsTeam, name, findByHome, findByAway,
   }: FormatLeaderboard): Promise<ILeaderboard> {
     let totalPoints = 0;
     let totalVictories = 0;
@@ -74,18 +75,33 @@ export default class Leaderboard {
     let goalsFavor = 0;
     let goalsOwn = 0;
     let goalsBalance = 0;
+    let totalGames = 0;
     matchsTeam.forEach((matchTeam) => {
-      const teamPoints = this.getTeamPoints(matchTeam, firstTeamGoals, secondTeamGoals);
-      totalPoints += teamPoints.totalPoints;
-      totalVictories += teamPoints.totalVictories;
-      totalDraws += teamPoints.totalDraws;
-      totalLosses += teamPoints.totalLosses;
-      const goalsInfo = this.getGoalsInfo(matchTeam, firstTeamGoals, secondTeamGoals);
-      goalsFavor += goalsInfo.goalsFavor;
-      goalsOwn += goalsInfo.goalsOwn;
-      goalsBalance += goalsInfo.goalsBalance;
+      if (findByHome && matchTeam.homeTeam === id) {
+        totalGames += 1;
+        const teamPoints = this.getTeamPoints(matchTeam, 'homeTeamGoals', 'awayTeamGoals');
+        totalPoints += teamPoints.totalPoints;
+        totalVictories += teamPoints.totalVictories;
+        totalDraws += teamPoints.totalDraws;
+        totalLosses += teamPoints.totalLosses;
+        const goalsInfo = this.getGoalsInfo(matchTeam, 'homeTeamGoals', 'awayTeamGoals');
+        goalsFavor += goalsInfo.goalsFavor;
+        goalsOwn += goalsInfo.goalsOwn;
+        goalsBalance += goalsInfo.goalsBalance;
+      }
+      if (findByAway && matchTeam.awayTeam === id) {
+        totalGames += 1;
+        const teamPoints = this.getTeamPoints(matchTeam, 'awayTeamGoals', 'homeTeamGoals');
+        totalPoints += teamPoints.totalPoints;
+        totalVictories += teamPoints.totalVictories;
+        totalDraws += teamPoints.totalDraws;
+        totalLosses += teamPoints.totalLosses;
+        const goalsInfo = this.getGoalsInfo(matchTeam, 'awayTeamGoals', 'homeTeamGoals');
+        goalsFavor += goalsInfo.goalsFavor;
+        goalsOwn += goalsInfo.goalsOwn;
+        goalsBalance += goalsInfo.goalsBalance;
+      }
     });
-    const totalGames = matchsTeam.length;
     const efficiency = ((totalPoints / (totalGames * 3)) * 100).toFixed(2);
     return {
       name,
