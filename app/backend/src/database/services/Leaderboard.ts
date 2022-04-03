@@ -72,6 +72,7 @@ export default class Leaderboard {
     let totalVictories = 0;
     let totalDraws = 0;
     let totalLosses = 0;
+
     let goalsFavor = 0;
     let goalsOwn = 0;
     let goalsBalance = 0;
