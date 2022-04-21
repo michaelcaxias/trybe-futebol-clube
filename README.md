@@ -17,7 +17,7 @@ Aplicação Fullstack de um gerenciador de partidas de futebol utilizando concei
 
 ## 💻 Como iniciar
 
-> Antes de iniciar, é importante ressaltar que é necessário ter o Docker instalado antes de prosseguir.
+> Antes de iniciar, é importante ressaltar que é necessário ter o Docker instalado.
 
 1. Faça o clone do projeto
 3. Instale as dependências
